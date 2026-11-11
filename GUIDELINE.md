@@ -22,8 +22,8 @@
 
 @font-face {
   font-family: "DabFonts";
-  src: local("☺"), url("/fonts/DabFonts-Bold.woff2") format("woff2");
-  font-weight: 700;
+  src: local("☺"), url("/fonts/DabFonts-SemiBold.woff2") format("woff2");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -36,7 +36,7 @@ body {
 
 - `local("☺")` 是**一个不存在的字体名**，放在 `src` 最前面，用于强制浏览器使用后面的 Web Font。本机若装有同名或同族字体，不加这句浏览器会优先用本地版本，字重和标点宽度都不可控。
 - `"DabFonts"` 必须排在字体栈第一位，后面跟系统 CJK 字体兜底。
-- 只有 400 / 700 两档。
+- 只有 400 / 600 两档。
 
 ## 标点
 
@@ -64,8 +64,8 @@ body {
 
 ## 字重与强调
 
-- 只用 400 / 700；500 会落到 400，600 会落到 700。
-- 没有斜体、没有小型大写：`<em>` 用 700 并把 `font-style` 设为 `normal`。
+- 只用 400 / 600；500 会落到 400，700 会落到 600。
+- 没有斜体、没有小型大写：`<em>` 用 600 并把 `font-style` 设为 `normal`。
 
 ## 不要写
 

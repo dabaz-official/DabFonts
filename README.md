@@ -24,9 +24,9 @@
 }
 @font-face {
   font-family: "DabFonts";
-  font-weight: 700;
+  font-weight: 600;
   font-display: swap;
-  src: url("/fonts/DabFonts-Bold.woff2") format("woff2");
+  src: url("/fonts/DabFonts-SemiBold.woff2") format("woff2");
 }
 
 body {
@@ -35,20 +35,20 @@ body {
 }
 ```
 
-- 只有 400 / 700 两个字重；中间字重会就近取用（500 → 400，600 → 700），不要依赖合成
+- 只有 400 / 600 两个字重；中间字重会就近取用（500 → 400，700 → 600），不要依赖合成
 - **不要**再开 `font-feature-settings: "palt"`，标点已经是半角
 - 3,755 字之外的汉字会自动回落到后面的系统字体，这是设计行为
 
 ### 桌面
 
-安装 `dist/DabFonts-Regular.ttf` 与 `dist/DabFonts-Bold.ttf` 即可，族名 `DabFonts`。
+安装 `dist/DabFonts-Regular.ttf` 与 `dist/DabFonts-SemiBold.ttf` 即可，族名 `DabFonts`。
 
 ## 目录
 
 ```
 sources/     Inter / Noto Sans SC 可变字体原件 + OFL 许可
 scripts/     build_dabfonts.py（主构建）/ build_web_assets.py（页面子集）/ serve.py
-dist/        DabFonts-{Regular,Bold}.{ttf,woff2}
+dist/        DabFonts-{Regular,SemiBold}.{ttf,woff2}
 history/     改动前的快照，供对照与回退
 demo/        index.html（三方案对照）/ punct.html（标点）/ scale.html（缩放）/ align.html（垂直对齐）
 build/       中间产物，可删

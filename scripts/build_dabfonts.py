@@ -8,7 +8,7 @@
   Anything else                                         -> Inter if it has the codepoint,
                                                            otherwise absent (system fallback)
 
-Outputs dist/DabFonts-{Regular,Bold}.{ttf,woff2}.
+Outputs dist/DabFonts-{Regular,SemiBold}.{ttf,woff2}.
 Intermediates land in build/ and are inputs for scripts/build_web_assets.py.
 """
 import os
@@ -354,5 +354,5 @@ def build(weight, style):
 
 
 if __name__ == "__main__":
-    for w, s in ((400, "Regular"), (700, "Bold")):
+    for w, s in ((400, "Regular"), (600, "SemiBold")):
         build(w, s)

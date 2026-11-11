@@ -36,11 +36,11 @@ RANGES = ("U+0020-024F,U+0370-04FF,U+1E00-1EFF,U+2000-206F,"
 
 jobs = [
     (os.path.join(BUILD, "inter-400.ttf"), os.path.join(FONTS, "inter-400.woff2")),
-    (os.path.join(BUILD, "inter-700.ttf"), os.path.join(FONTS, "inter-700.woff2")),
+    (os.path.join(BUILD, "inter-600.ttf"), os.path.join(FONTS, "inter-600.woff2")),
     (os.path.join(BUILD, "noto-400.ttf"),  os.path.join(FONTS, "noto-400.woff2")),
-    (os.path.join(BUILD, "noto-700.ttf"),  os.path.join(FONTS, "noto-700.woff2")),
+    (os.path.join(BUILD, "noto-600.ttf"),  os.path.join(FONTS, "noto-600.woff2")),
     (os.path.join(DIST, "DabFonts-Regular.ttf"), os.path.join(FONTS, "dab-400.woff2")),
-    (os.path.join(DIST, "DabFonts-Bold.ttf"),    os.path.join(FONTS, "dab-700.woff2")),
+    (os.path.join(DIST, "DabFonts-SemiBold.ttf"), os.path.join(FONTS, "dab-600.woff2")),
     # history/v1: full-width punctuation, full Han set
     (os.path.join(HIST, "v1-fullwidth/DabFonts-Regular.ttf"),
      os.path.join(FONTS, "before-400.woff2")),
@@ -71,8 +71,8 @@ for src, out in jobs:
 
 # ---- self-contained build (index.html only) ----
 page = html
-for name in ("inter-400", "inter-700", "noto-400", "noto-700",
-             "dab-400", "dab-700", "before-400", "before-700",
+for name in ("inter-400", "inter-600", "noto-400", "noto-600",
+             "dab-400", "dab-600", "before-400", "before-700",
              "unscaled-400", "unscaled-700"):
     path = os.path.join(FONTS, f"{name}.woff2")
     b64 = base64.b64encode(open(path, "rb").read()).decode()
