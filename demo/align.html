@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DabFonts · 拉丁/汉字垂直对齐校准</title>
+<style>
+  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
+  @font-face{font-family:"DabFonts";font-weight:700;font-display:block;src:url(fonts/dab-700.woff2) format("woff2");}
+
+  :root{--bg:#fbfaf8;--panel:#fff;--ink:#141414;--muted:#6b6b6b;--line:#e6e2dc;--accent:#b23a2e}
+  *{box-sizing:border-box}
+  body{margin:0;padding:36px 40px 64px;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;-webkit-font-smoothing:antialiased}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:14.5px;line-height:1.75;color:var(--muted);max-width:78ch;margin:0}
+  .lede code{background:#f0ece7;padding:1px 5px;border-radius:3px;font-size:13px;color:#4a423b}
+
+  .facts{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:22px 0 18px;max-width:1180px}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px 15px}
+  .fact dt{font-size:11.5px;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+  .fact dd{margin:0;font-size:19px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .fact dd small{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+
+  .controls{max-width:1180px;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+            padding:16px 20px;display:flex;gap:30px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .ctl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .ctl b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600;min-width:74px}
+  input[type=range]{width:200px;accent-color:var(--accent)}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  .presets button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 11px;
+                  font-size:12.5px;cursor:pointer;color:#333;font-family:inherit}
+  .presets button:hover{border-color:var(--accent);color:var(--accent)}
+
+  .stage{max-width:1180px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 30px 30px}
+  .sample{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif;--dy:0.0115;--ls:1;--fs:24px;
+          font-size:var(--fs);line-height:1.85}
+  .sample p{margin:0 0 .9em}
+  .sample p:last-child{margin:0}
+  .lat{display:inline-block;font-size:calc(1em * var(--ls));
+       transform:translateY(calc(var(--dy) * var(--fs) * -1))}
+  .bigpairs{font-size:calc(var(--fs) * 1.15);letter-spacing:.05em}
+  .hatch{background:linear-gradient(transparent 62%, #f3e6e2 62%, #f3e6e2 64%, transparent 64%);}
+
+  .readout{max-width:1180px;margin-top:16px;font-size:13px;color:var(--muted);line-height:1.9}
+  .readout b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .readout code{background:#f0ece7;padding:2px 6px;border-radius:4px;font-size:12.5px;color:#4a423b}
+  .warn{max-width:1180px;margin-top:14px;padding:12px 16px;border-left:3px solid var(--accent);
+        background:#fdf7f5;border-radius:6px;font-size:13px;line-height:1.8;color:#4a3b37}
+</style>
+</head>
+<body>
+
+<div class="kicker">DabFonts / vertical alignment</div>
+<h1>拉丁与汉字，垂直方向到底差多少</h1>
+<p class="lede">
+  Apple 中文官网发了一个叫 <code>SFProPingFangSC-Regular.woff2</code> 的文件。拆开看：<b>SF Pro 大写中心 0.3530 em</b>，
+  <b>PingFang 汉字中心 0.3563 em</b>，残差 <code>0.0033 em</code>——约 0.06 像素。他们并没有做什么对齐 hack，
+  是两个字族本来就按同一套垂直标准画的。
+  <br>我们这边：Inter 0.3640 vs Noto 0.3755，差 0.0115。这一版 DabFonts 已把 <b>+0.0115 em 烤进字形</b>
+  （<code>A</code> 的 bbox 从 0–728 变成 12–740），残差 <code>0.0005 em</code>，比 Apple 还紧一点。
+  下面的滑块是"在此之上的额外偏移"，用来验证再移多少会开始难看。
+</p>
+
+<dl class="facts">
+  <div class="fact"><dt>Inter 大写中心</dt><dd>0.3640<small>em</small></dd></div>
+  <div class="fact"><dt>Noto 汉字中心</dt><dd>0.3755<small>em</small></dd></div>
+  <div class="fact"><dt>原始差</dt><dd>+0.0115<small>em</small></dd></div>
+  <div class="fact"><dt>DabFonts 残差</dt><dd>0.0005<small>em ≈ 0.01px</small></dd></div>
+  <div class="fact"><dt>Apple 残差</dt><dd>0.0033<small>em ≈ 0.06px</small></dd></div>
+</dl>
+
+<div class="controls">
+  <label class="ctl">额外上移 dy <input id="dy" type="range" min="-0.06" max="0.12" step="0.0001" value="0"><b id="dyv">+0.0000 em</b></label>
+  <label class="ctl">额外放大 <input id="ls" type="range" min="0.90" max="1.20" step="0.005" value="1"><b id="lsv">1.000×</b></label>
+  <label class="ctl">字号 <input id="fs" type="range" min="14" max="44" step="1" value="24"><b id="fsv">24 px</b></label>
+  <div class="presets">
+    <button data-dy="0" data-ls="1">当前字体</button>
+    <button data-dy="-0.0115" data-ls="1">退回未对齐</button>
+    <button data-dy="0.098" data-ls="1">连小写也对齐</button>
+    <button data-dy="0" data-ls="1.05">拉丁放大 5%</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="sample" id="sample">
+    <p><span class="lat">DabFonts</span> 把 <span class="lat">Inter</span> 和 <span class="lat">Noto Sans SC</span> 合并成一个字体。</p>
+    <p><span class="lat">ABC abc 0123456789</span> 中文汉字排版对齐</p>
+    <p class="bigpairs"><span class="lat">A</span>中 <span class="lat">B</span>文 <span class="lat">x</span>字 <span class="lat">g</span>永 <span class="lat">H</span>国 <span class="lat">1</span>一</p>
+    <p style="font-size:.82em;color:#6b6b6b"><span class="lat">The quick brown fox</span> 跳过了那只懒狗，<span class="lat">baseline</span> 是唯一真正共享的参考线。</p>
+  </div>
+</div>
+
+<div class="readout">
+  当前：额外 dy <b id="r-dy">+0.0000</b> em　额外放大 <b id="r-ls">1.000</b>　字号 <b id="r-fs">24</b> px
+  → 视觉位移 <b id="r-px">+0.00</b> px，累积大写中心 <b id="r-center">0.3760</b> em（汉字 0.3755）
+  <br>要改字体里的值：<code>LATIN_DY = <b id="r-code-dy">0.0000</b></code>　<code>LATIN_SCALE = <b id="r-code-ls">1.000</b></code>　（当前字体已内置 +0.0115）
+</div>
+
+<div class="warn">
+  <b>为什么小写永远对不齐：</b>小写 x 的中心现在是 0.2775 em，比汉字中心低 0.098 em（18px 下约 1.8px）。
+  这是"西文小写天生只有大写 3/4 高"的必然结果，不是对齐 bug——想把小写也对齐，只能整体再上移，
+  代价是大写会明显浮起来（点"连小写也对齐"看）。所以 Apple 也好、任何中文排版规范也好，
+  做法都是：<b>对齐基线，靠字号补偿大小，不靠位移</b>。
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const sample = $('sample');
+  function apply() {
+    const dy = parseFloat($('dy').value), ls = parseFloat($('ls').value), fs = parseFloat($('fs').value);
+    sample.style.setProperty('--dy', dy);
+    sample.style.setProperty('--ls', ls);
+    sample.style.setProperty('--fs', fs + 'px');
+    $('dyv').textContent = (dy >= 0 ? '+' : '') + dy.toFixed(4) + ' em';
+    $('lsv').textContent = ls.toFixed(3) + '×';
+    $('fsv').textContent = fs + ' px';
+    $('r-dy').textContent = (dy >= 0 ? '+' : '') + dy.toFixed(4);
+    $('r-ls').textContent = ls.toFixed(3);
+    $('r-fs').textContent = fs;
+    $('r-px').textContent = (dy * fs).toFixed(2);
+    $('r-center').textContent = (0.364 * ls + dy + 0.0115).toFixed(4);
+    $('r-code-dy').textContent = dy.toFixed(4);
+    $('r-code-ls').textContent = ls.toFixed(3);
+  }
+  ['dy','ls','fs'].forEach(id => $(id).addEventListener('input', apply));
+  document.querySelectorAll('.presets button').forEach(b => b.addEventListener('click', () => {
+    $('dy').value = b.dataset.dy; $('ls').value = b.dataset.ls; apply();
+  }));
+  apply();
+</script>
+</body>
+</html>

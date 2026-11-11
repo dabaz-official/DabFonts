@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DabFonts · 半角标点</title>
+<style>
+  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
+  @font-face{font-family:"DabFonts";font-weight:700;font-display:block;src:url(fonts/dab-700.woff2) format("woff2");}
+  @font-face{font-family:"BeforePunct";font-weight:400;font-display:block;src:url(fonts/before-400.woff2) format("woff2");}
+  @font-face{font-family:"BeforePunct";font-weight:700;font-display:block;src:url(fonts/before-700.woff2) format("woff2");}
+
+  :root{--bg:#fbfaf8;--panel:#fff;--ink:#141414;--muted:#6b6b6b;--line:#e6e2dc;--accent:#b23a2e;--size:24px}
+  *{box-sizing:border-box}
+  body{margin:0;padding:36px 40px 60px;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;-webkit-font-smoothing:antialiased}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:14.5px;line-height:1.8;color:var(--muted);max-width:80ch;margin:0}
+  .lede code{background:#f0ece7;padding:1px 5px;border-radius:3px;font-size:13px;color:#4a423b}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 16px;max-width:1180px}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px 15px}
+  .fact dt{font-size:11.5px;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+  .fact dd{margin:0;font-size:18px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .fact dd small{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+
+  .controls{max-width:1180px;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+            padding:14px 20px;display:flex;gap:30px;align-items:center;margin-bottom:16px}
+  .ctl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .ctl b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600;min-width:60px}
+  input[type=range]{width:220px;accent-color:var(--accent)}
+
+  .pair{max-width:1180px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:900px){.pair{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 11px;border-bottom:1px solid var(--line)}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;background:#9a9a9a;padding:3px 7px;border-radius:4px}
+  .panel.new .tag{background:var(--accent)}
+  .name{font-size:14px;font-weight:600}
+  .sub{font-size:12px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+  .body{padding:20px 22px 24px;font-size:var(--size);line-height:1.85}
+  .body p{margin:0 0 1em}
+  .body p:last-child{margin:0}
+  .old .body{font-family:"BeforePunct",-apple-system,"PingFang SC",sans-serif}
+  .new .body{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif}
+  .punct{letter-spacing:.01em}
+  .dim{color:var(--muted);font-size:.8em}
+
+  .measure{max-width:1180px;margin-top:16px;background:var(--panel);border:1px solid var(--line);
+           border-radius:10px;padding:14px 20px;font-size:13px;color:var(--muted);line-height:1.9}
+  .measure b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .bar{height:6px;border-radius:3px;background:#e8e2db;margin-top:6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:#9a9a9a}
+  .bar.acc i{background:var(--accent)}
+  .warn{max-width:1180px;margin-top:14px;padding:12px 16px;border-left:3px solid var(--accent);
+        background:#fdf7f5;border-radius:6px;font-size:13px;line-height:1.85;color:#4a3b37}
+</style>
+</head>
+<body>
+
+<div class="kicker">DabFonts / punctuation</div>
+<h1>把中文标点换成 Noto 自己的半角</h1>
+<p class="lede">
+  不再自制造型：<code>hwid</code>（GSUB 半角变体）用在有专门字形的地方——（ ）［］｛｝，～ 等 10 个；
+  <code>halt</code>（GPOS 半角度量）用在只有度量调整的地方——。、〈〉《》【】〔〕「」『』！：；？ 等 18 个，
+  连 <code>XPlacement −500</code> 的左移一并烘进字形。两套特性随后从字体里删掉，浏览器不会二次应用。
+  28 个标点全部 500/1000。
+</p>
+
+<dl class="facts">
+  <div class="fact"><dt>标点 advance</dt><dd>1000 → 500<small>/1000 em</small></dd></div>
+  <div class="fact"><dt>处理方式</dt><dd>10<small>hwid</small> + 18<small>halt</small></dd></div>
+  <div class="fact"><dt>汉字</dt><dd>3,755<small>GB2312 一级</small></dd></div>
+  <div class="fact"><dt>字形数</dt><dd>9,312<small>原 33,969</small></dd></div>
+</dl>
+
+<div class="controls">
+  <label class="ctl">字号 <input id="size" type="range" min="14" max="40" step="1" value="24"><b id="sizev">24 px</b></label>
+  <span class="ctl" style="margin-left:auto">同一段文字，左边旧构建 / 右边新构建</span>
+</div>
+
+<div class="pair">
+  <section class="panel old">
+    <div class="head"><span class="tag">旧</span><span class="name">全角标点</span><span class="sub">advance 1000</span></div>
+    <div class="body">
+      <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
+      <p class="punct">。，、；：！？……——《》【】「」（）</p>
+      <p>中文标点的宽度，决定了一行能放多少字。逗号、句号、顿号、分号、冒号、问号、叹号，全角时各占一个字宽。</p>
+    </div>
+  </section>
+
+  <section class="panel new">
+    <div class="head"><span class="tag">新</span><span class="name">半角标点</span><span class="sub">advance 500</span></div>
+    <div class="body">
+      <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
+      <p class="punct">。，、；：！？……——《》【】「」（）</p>
+      <p>中文标点的宽度，决定了一行能放多少字。逗号、句号、顿号、分号、冒号、问号、叹号，全角时各占一个字宽。</p>
+    </div>
+  </section>
+</div>
+
+<div class="measure">
+  同一句话实测宽度（100px 字号）：
+  <br>旧 <b id="w-old">—</b> px　<span class="bar"><i id="bar-old" style="width:100%"></i></span>
+  <br>新 <b id="w-new">—</b> px　<span class="bar acc"><i id="bar-new" style="width:0"></i></span>
+  <br>差了 <b id="w-diff">—</b> px —— 这就是每行多出来的字。
+</div>
+
+<div class="warn">
+  <b>提示：</b>〖〗 保持 1000，引号 “” ‘ ’ 和省略号 … 由 Inter 提供（429 / 841），
+  这套分工和 dabmusic 一致。超过 3,755 个常用字之外的字不在字体里，会回落到系统字体。
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  $('size').addEventListener('input', e => {
+    document.documentElement.style.setProperty('--size', e.target.value + 'px');
+    $('sizev').textContent = e.target.value + ' px';
+  });
+
+  document.fonts.ready.then(() => {
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font-size:100px';
+    const sentence = '他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。';
+    probe.textContent = sentence;
+    document.body.appendChild(probe);
+    probe.style.fontFamily = '"BeforePunct"';
+    const wOld = probe.getBoundingClientRect().width;
+    probe.style.fontFamily = '"DabFonts"';
+    const wNew = probe.getBoundingClientRect().width;
+    probe.remove();
+    $('w-old').textContent = wOld.toFixed(1);
+    $('w-new').textContent = wNew.toFixed(1);
+    $('w-diff').textContent = (wOld - wNew).toFixed(1);
+    $('bar-new').style.width = (wNew / wOld * 100).toFixed(1) + '%';
+  });
+</script>
+</body>
+</html>

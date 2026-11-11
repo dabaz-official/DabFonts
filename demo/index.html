@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DabFonts · 中英混排对照</title>
+<style>
+  /* ---------- A/B 组用的独立字体（仅演示用，已按页面文字裁剪） ---------- */
+  @font-face{font-family:"InterW";font-weight:400;font-display:block;src:url(fonts/inter-400.woff2) format("woff2");}
+  @font-face{font-family:"InterW";font-weight:700;font-display:block;src:url(fonts/inter-700.woff2) format("woff2");}
+  @font-face{font-family:"NotoSC";font-weight:400;font-display:block;src:url(fonts/noto-400.woff2) format("woff2");}
+  @font-face{font-family:"NotoSC";font-weight:700;font-display:block;src:url(fonts/noto-700.woff2) format("woff2");}
+
+  /* ---------- C 组：DabFonts 合并字体 ---------- */
+  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
+  @font-face{font-family:"DabFonts";font-weight:700;font-display:block;src:url(fonts/dab-700.woff2) format("woff2");}
+
+  :root{
+    --bg:#fbfaf8; --panel:#fff; --ink:#141414; --muted:#6b6b6b;
+    --line:#e6e2dc; --accent:#b23a2e; --accent-soft:#f7ece9;
+    --size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:40px 32px 72px;
+  }
+  header{max-width:1440px;margin:0 auto 28px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  h1{font-size:30px;line-height:1.25;margin:0 0 10px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:15px;line-height:1.7;color:var(--muted);max-width:74ch;margin:0}
+  .lede code{font-size:13px;background:#f0ece7;padding:1px 5px;border-radius:3px;color:#4a423b}
+
+  .controls{max-width:1440px;margin:22px auto 26px;display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+    padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+  .control{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .control b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  input[type=range]{width:170px;accent-color:var(--accent)}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .seg button{border:0;background:transparent;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--muted);font-family:inherit}
+  .seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+
+  .grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  @media (max-width:1180px){.grid{grid-template-columns:1fr}}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .panel-head{padding:15px 20px 13px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:10px}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--ink);
+       padding:3px 7px;border-radius:4px;flex:none}
+  .panel.c .tag{background:var(--accent)}
+  .panel-name{font-size:14px;font-weight:600}
+  .panel-note{padding:0 20px 12px;font-size:12px;line-height:1.6;color:var(--muted);border-bottom:1px solid var(--line);background:#fdfcfb}
+  .panel-note code{font-size:11.5px;background:#f0ece7;padding:1px 4px;border-radius:3px}
+
+  .sample{padding:20px;font-size:var(--size);line-height:1.75;flex:1}
+  .sample p{margin:0 0 1.15em}
+  .sample p:last-child{margin-bottom:0}
+  .sample .h{font-weight:700;font-size:1.16em;line-height:1.45;margin-bottom:.75em;letter-spacing:-.005em}
+  .sample .dim{color:var(--muted);font-size:.86em}
+  .sample .punct{letter-spacing:.02em}
+  .sample .mono-num{font-variant-numeric:tabular-nums}
+  .sample .langs{font-size:.85em;line-height:1.9;color:#333}
+  .rule{height:1px;background:var(--line);margin:1.1em 0}
+
+  /* 中英共用码位标记 */
+  .m{border-bottom:1px dashed #c9553f;padding-bottom:1px}
+  .legend{max-width:1440px;margin:0 auto 18px;display:flex;align-items:center;gap:10px;
+    font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+  .legend b{color:var(--ink);font-weight:600}
+  .legend .swatch{border-bottom:1px dashed #c9553f;padding:0 4px 1px;color:var(--ink);font-size:14px}
+
+  .findings{max-width:1440px;margin:26px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media (max-width:1180px){.findings{grid-template-columns:1fr}}
+  .finding{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:8px;padding:14px 18px;font-size:13px;line-height:1.75;color:#3a3a3a}
+  .finding b:first-of-type{display:block;font-size:12px;letter-spacing:.06em;color:var(--accent);margin-bottom:5px}
+  .finding b{color:var(--ink);font-weight:600}
+
+  .a .sample{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  .b .sample{font-family:"InterW","NotoSC",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+  .c .sample{font-family:"DabFonts",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+
+  .flag{display:inline-block;font-size:10px;letter-spacing:.04em;color:#8a5a00;background:#fdf3d8;
+        border:1px solid #f0e0b0;border-radius:4px;padding:1px 5px;vertical-align:middle;margin-left:4px;
+        font-family:-apple-system,"PingFang SC",sans-serif;line-height:1.6}
+
+  footer{max-width:1440px;margin:30px auto 0;font-size:12.5px;line-height:1.8;color:var(--muted)}
+  footer code{background:#f0ece7;padding:1px 5px;border-radius:3px;font-size:11.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">DabFonts / merge test</div>
+  <h1>同一段文字，三种字体方案</h1>
+  <p class="lede">
+    左：系统字体栈（B 站式）。中：<code>Inter + Noto Sans SC</code> 双字体栈，不做合并。
+    右：<code>DabFonts</code>，拉丁/数字/英文标点取 Inter，汉字与中文标点取 Noto Sans SC，
+    其余语言 Inter 有则用 Inter、没有则回退系统字体。拖动字号可放大看标点。
+  </p>
+</header>
+
+<div class="controls">
+  <label class="control">字号 <input id="size" type="range" min="14" max="34" value="18" step="1"><b id="sizeVal">18 px</b></label>
+  <div class="control">字重
+    <div class="seg" id="weight">
+      <button data-w="400" aria-pressed="true">Regular 400</button>
+      <button data-w="700" aria-pressed="false">Bold 700</button>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span>虚线下划线 = <b>中英共用同一个码位</b>的标点</span>
+  <span class="swatch">“ ” ‘ ’</span><span>U+201C–201D / 2018–2019</span>
+  <span class="swatch">…</span><span>U+2026</span>
+  <span class="swatch">—</span><span>U+2014</span>
+  <span class="swatch">·</span><span>U+00B7</span>
+  <span>—— 三种方案的差别几乎全部集中在这里</span>
+</div>
+
+<div class="grid">
+
+  <section class="panel a">
+    <div class="panel-head"><span class="tag">A</span><span class="panel-name">系统字体栈</span></div>
+    <div class="panel-note"><code>PingFang SC → Microsoft YaHei</code>　B 站的做法：不下载字体，全靠本机。</div>
+    <div class="sample" id="sA">
+      <p class="h">他说：“这套字体——真的很精细……”</p>
+      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
+      <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
+      <div class="rule"></div>
+      <p class="mono-num">0123456789 1,234.56 12.80% −0.001 2026-11-11</p>
+      <p class="langs">English · Français · Deutsch · Español · Tiếng Việt · Ελληνικά · Русский</p>
+      <p class="langs">العربية · हिन्दी · 한국어 · ไทย · 𠮷野家</p>
+    </div>
+  </section>
+
+  <section class="panel b">
+    <div class="panel-head"><span class="tag">B</span><span class="panel-name">双字体栈</span></div>
+    <div class="panel-note"><code>Inter, Noto Sans SC</code>　不做合并，靠 unicode-range 分工。</div>
+    <div class="sample" id="sB">
+      <p class="h">他说：“这套字体——真的很精细……”</p>
+      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
+      <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
+      <div class="rule"></div>
+      <p class="mono-num">0123456789 1,234.56 12.80% −0.001 2026-11-11</p>
+      <p class="langs">English · Français · Deutsch · Español · Tiếng Việt · Ελληνικά · Русский</p>
+      <p class="langs">العربية · हिन्दी · 한국어 · ไทย · 𠮷野家</p>
+    </div>
+  </section>
+
+  <section class="panel c">
+    <div class="panel-head"><span class="tag">C</span><span class="panel-name">DabFonts</span></div>
+    <div class="panel-note"><code>单文件合并</code>　一个字族同时负责汉字、标点、拉丁。环球影城的做法。</div>
+    <div class="sample" id="sC">
+      <p class="h">他说：“这套字体——真的很精细……”</p>
+      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
+      <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
+      <div class="rule"></div>
+      <p class="mono-num">0123456789 1,234.56 12.80% −0.001 2026-11-11</p>
+      <p class="langs">English · Français · Deutsch · Español · Tiếng Việt · Ελληνικά · Русский</p>
+      <p class="langs">العربية · हिन्दी · 한국어 · ไทย · 𠮷野家</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="findings">
+  <div class="finding"><b>A → B/C 的差别</b>
+    全部发生在共用码位上。引号在 A 里是 53.7px 宽（苹方），在 B/C 里是 42.9px（Inter）；
+    省略号从居中的六点变成左下三点；破折号从两枚全角连排变成 Inter 的西文 em dash。
+  </div>
+  <div class="finding"><b>B 与 C 的差别</b>
+    肉眼为零。实测每个字符宽度完全一致——C 并没有改变渲染，它改变的是
+    <b>分发方式</b>：一个文件、一套度量、不依赖 unicode-range 拼接。
+  </div>
+  <div class="finding"><b>中文标点已半角化</b>
+    C 里 <code>。</code> <code>，</code> <code>、</code> 仍由 Noto 提供，但 advance 已从 1000 改成 500
+    ——用的是 Noto 自带的 <code>hwid</code> / <code>halt</code> 参数，直接烘进字形。
+    Inter 没有这些字符，所以它们只能来自中文字体。
+  </div>
+</div>
+
+<footer>
+  字体来源：Inter 4.001（OFL 1.1，Inter Project Authors）、Noto Sans SC 2.004（OFL 1.1，Adobe / Google，保留字体名 <code>Source</code>）。
+  合并产物 <code>DabFonts</code> 同样以 OFL 1.1 发布，仅用于个人非商业项目。
+  最后一行里的 阿拉伯文 / 天城文 / 韩文 / 泰文 / 扩展 B 汉字 不在字体覆盖范围内，由系统字体接管——这正是"用不了则用系统字体"的表现。<br>
+  构建注记：合并后已从 Noto 侧移除 <code>locl</code> 特性。它在 <code>lang=zh-CN</code> 下会自动启用，把 668 个拉丁字形替换成 Noto 自带版本，
+  实测使 <code>A</code> 的宽度从 686 掉到 608——不处理的话，Inter 等于白合并。
+</footer>
+
+<script>
+  const size = document.getElementById('size');
+  const sizeVal = document.getElementById('sizeVal');
+  size.addEventListener('input', () => {
+    document.documentElement.style.setProperty('--size', size.value + 'px');
+    sizeVal.textContent = size.value + ' px';
+  });
+
+  document.getElementById('weight').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...e.currentTarget.children].forEach(b => b.setAttribute('aria-pressed', b === btn));
+    const w = btn.dataset.w;
+    ['sA','sB','sC'].forEach(id => {
+      document.getElementById(id).style.fontWeight = w;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DabFonts · 中文字面缩放</title>
+<style>
+  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
+  @font-face{font-family:"DabFonts";font-weight:700;font-display:block;src:url(fonts/dab-700.woff2) format("woff2");}
+  @font-face{font-family:"Unscaled";font-weight:400;font-display:block;src:url(fonts/unscaled-400.woff2) format("woff2");}
+  @font-face{font-family:"Unscaled";font-weight:700;font-display:block;src:url(fonts/unscaled-700.woff2) format("woff2");}
+
+  :root{--bg:#fbfaf8;--panel:#fff;--ink:#141414;--muted:#6b6b6b;--line:#e6e2dc;--accent:#b23a2e;--size:24px}
+  *{box-sizing:border-box}
+  body{margin:0;padding:36px 40px 60px;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;-webkit-font-smoothing:antialiased}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  h1{font-size:27px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:14.5px;line-height:1.8;color:var(--muted);max-width:82ch;margin:0}
+  .lede code{background:#f0ece7;padding:1px 5px;border-radius:3px;font-size:13px;color:#4a423b}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 16px;max-width:1180px}
+  .fact{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px 15px}
+  .fact dt{font-size:11.5px;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+  .fact dd{margin:0;font-size:18px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .fact dd small{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+
+  .controls{max-width:1180px;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+            padding:14px 20px;display:flex;gap:30px;align-items:center;margin-bottom:16px}
+  .ctl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+  .ctl b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600;min-width:60px}
+  input[type=range]{width:220px;accent-color:var(--accent)}
+
+  .pair{max-width:1180px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:900px){.pair{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 11px;border-bottom:1px solid var(--line)}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;background:#9a9a9a;padding:3px 7px;border-radius:4px}
+  .panel.new .tag{background:var(--accent)}
+  .name{font-size:14px;font-weight:600}
+  .sub{font-size:12px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+  .body{padding:20px 22px 24px;font-size:var(--size);line-height:1.85}
+  .body p{margin:0 0 1em}
+  .body p:last-child{margin:0}
+  .old .body{font-family:"Unscaled",-apple-system,"PingFang SC",sans-serif}
+  .new .body{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif}
+  .dim{color:var(--muted);font-size:.8em}
+
+  .measure{max-width:1180px;margin-top:16px;background:var(--panel);border:1px solid var(--line);
+           border-radius:10px;padding:14px 20px;font-size:13px;color:var(--muted);line-height:1.95}
+  .measure b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .bar{height:6px;border-radius:3px;background:#e8e2db;margin-top:5px;overflow:hidden}
+  .bar i{display:block;height:100%;background:#9a9a9a}
+  .bar.acc i{background:var(--accent)}
+  .warn{max-width:1180px;margin-top:14px;padding:12px 16px;border-left:3px solid var(--accent);
+        background:#fdf7f5;border-radius:6px;font-size:13px;line-height:1.85;color:#4a3b37}
+</style>
+</head>
+<body>
+
+<div class="kicker">DabFonts / cjk scale</div>
+<h1>把中文字面缩到 94%，对齐 Apple 的比例</h1>
+<p class="lede">
+  Apple 首页那份 webfont 是把 PingFang 整体缩到 <code>0.886</code> 再上移 <code>44/1000 em</code>；
+  这里不做绝对尺寸复制，而是复制它的<b>比例</b>：汉字墨迹 / 拉丁大写高 = <b>1.167</b>。
+  Noto 的汉字墨迹比 PingFang 小，所以系数落在 <code>0.94</code>。缩放同样作用于 advance
+  （1000 → 940），中文行内密度会明显变紧，同时光学中心被抬回原位（dy = 22/1000 em）。
+</p>
+
+<dl class="facts">
+  <div class="fact"><dt>CJK scale</dt><dd>1.00 → 0.94</dd></div>
+  <div class="fact"><dt>汉字 advance</dt><dd>1000 → 940<small>/1000 em</small></dd></div>
+  <div class="fact"><dt>墨迹 / 大写高</dt><dd>1.24 → 1.17<small>Apple 1.167</small></dd></div>
+  <div class="fact"><dt>光学中心</dt><dd>0.375<small>保持不动</small></dd></div>
+</dl>
+
+<div class="controls">
+  <label class="ctl">字号 <input id="size" type="range" min="14" max="40" step="1" value="24"><b id="sizev">24 px</b></label>
+  <span class="ctl" style="margin-left:auto">左：缩放前（v2）　右：缩放 0.94（当前）</span>
+</div>
+
+<div class="pair">
+  <section class="panel old">
+    <div class="head"><span class="tag">缩放前</span><span class="name">汉字 1000/1000</span><span class="sub">v2 snapshot</span></div>
+    <div class="body">
+      <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
+      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
+      <p class="dim">0123456789 · ABCDabcd · 中文汉字排版</p>
+    </div>
+  </section>
+
+  <section class="panel new">
+    <div class="head"><span class="tag">缩放后</span><span class="name">汉字 940/1000</span><span class="sub">scale 0.94</span></div>
+    <div class="body">
+      <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
+      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
+      <p class="dim">0123456789 · ABCDabcd · 中文汉字排版</p>
+    </div>
+  </section>
+</div>
+
+<div class="measure">
+  同一句话实测宽度（100px 字号）：
+  <br>缩放前 <b id="w-old">—</b> px　<span class="bar"><i id="bar-old" style="width:100%"></i></span>
+  <br>缩放后 <b id="w-new">—</b> px　<span class="bar acc"><i id="bar-new" style="width:0"></i></span>
+  <br>窄了 <b id="w-diff">—</b> px，约 <b id="w-pct">—</b>%
+</div>
+
+<div class="warn">
+  <b>注意行高。</b>缩放只改字形和 advance，<code>OS/2</code> 的 typo 度量没动——所以行距不变、字变小，
+  这点和 Apple 一致。如果觉得中文"变轻"了，把 <code>--size</code> 调大一档就能找回原来的字面高度。
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  $('size').addEventListener('input', e => {
+    document.documentElement.style.setProperty('--size', e.target.value + 'px');
+    $('sizev').textContent = e.target.value + ' px';
+  });
+
+  document.fonts.ready.then(() => {
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font-size:100px';
+    const sentence = '他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。';
+    probe.textContent = sentence;
+    document.body.appendChild(probe);
+    probe.style.fontFamily = '"Unscaled"';
+    const wOld = probe.getBoundingClientRect().width;
+    probe.style.fontFamily = '"DabFonts"';
+    const wNew = probe.getBoundingClientRect().width;
+    probe.remove();
+    $('w-old').textContent = wOld.toFixed(1);
+    $('w-new').textContent = wNew.toFixed(1);
+    $('w-diff').textContent = (wOld - wNew).toFixed(1);
+    $('w-pct').textContent = ((wOld - wNew) / wOld * 100).toFixed(1);
+    $('bar-new').style.width = (wNew / wOld * 100).toFixed(1) + '%';
+  });
+</script>
+</body>
+</html>
