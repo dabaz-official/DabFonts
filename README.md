@@ -22,13 +22,13 @@
   font-family: "Dab Sans";
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Dab Sans-Regular.woff2") format("woff2");
+  src: url("/fonts/DabSans-Regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Dab Sans";
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
+  src: url("/fonts/DabSans-SemiBold.woff2") format("woff2");
 }
 
 body {
@@ -49,15 +49,15 @@ code, pre, kbd, samp {
 
 ### 桌面
 
-安装 `dist/Dab Sans-Regular.ttf` 与 `dist/Dab Sans-SemiBold.ttf` 即可，族名 `Dab Sans`。等宽另装 `dist/Dab Mono-*.ttf`。
+安装 `dist/DabSans-Regular.ttf` 与 `dist/DabSans-SemiBold.ttf` 即可，族名 `Dab Sans`。等宽另装 `dist/DabMono-*.ttf`。
 
 ## 目录
 
 ```
 sources/     Inter / Noto Sans SC 可变字体原件 + OFL 许可
 scripts/     build_dabfonts.py（主构建）/ build_web_assets.py（页面子集）/ serve.py
-dist/        Dab Sans-{Regular,SemiBold}.{ttf,woff2}（正文）
-             Dab Mono-{Regular,SemiBold}.{ttf,woff2}（等宽）
+dist/        DabSans-{Regular,SemiBold}.{ttf,woff2}（正文）
+             DabMono-{Regular,SemiBold}.{ttf,woff2}（等宽）
 history/     改动前的快照，供对照与回退
 demo/        index.html（三方案对照）/ punct.html（标点）/ scale.html（缩放）/ align.html（垂直对齐）
 build/       中间产物，可删

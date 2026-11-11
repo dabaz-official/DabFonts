@@ -1,7 +1,7 @@
 # Dab Sans 使用规范
 
 > 版本 1.0 · 2026-11-12
-> 适用：`dist/Dab Sans-{Regular,Bold}.{ttf,woff2}`，Inter 4.001 + Noto Sans SC 2.004 合并版
+> 适用：`dist/DabSans-{Regular,Bold}.{ttf,woff2}`，Inter 4.001 + Noto Sans SC 2.004 合并版
 
 Dab Sans 把拉丁和汉字放进了同一个字族：拉丁、数字、英文标点来自 Inter；汉字和中文标点来自 Noto Sans SC。它不是“另一个中文字体”，而是一套把中西文放进同一套度量里的排版方案。也正因为如此，它的使用规则和普通中文字体不同，**标点尤其不同**。
 
@@ -69,7 +69,7 @@ Ship it. Then test.
 ```css
 @font-face {
   font-family: "Dab Sans";
-  src: url("/fonts/Dab Sans-Regular.woff2") format("woff2");
+  src: url("/fonts/DabSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -77,7 +77,7 @@ Ship it. Then test.
 
 @font-face {
   font-family: "Dab Sans";
-  src: url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
+  src: url("/fonts/DabSans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -102,7 +102,7 @@ button, input, select, textarea {
 首屏用到的字重可以预加载；两个都预加载是 1.6 MB，通常不值得。
 
 ```html
-<link rel="preload" href="/fonts/Dab Sans-Regular.woff2"
+<link rel="preload" href="/fonts/DabSans-Regular.woff2"
       as="font" type="font/woff2" crossorigin>
 ```
 
@@ -117,7 +117,7 @@ button, input, select, textarea {
 
 ### 2.2 桌面
 
-安装 `dist/Dab Sans-Regular.ttf` 与 `dist/Dab Sans-SemiBold.ttf`，族名 `Dab Sans`。在应用里选 400 或 600；不要只装一个再让系统合成另一个。
+安装 `dist/DabSans-Regular.ttf` 与 `dist/DabSans-SemiBold.ttf`，族名 `Dab Sans`。在应用里选 400 或 600；不要只装一个再让系统合成另一个。
 
 Figma 等设计工具里，把 Regular 映射到 400、SemiBold 映射到 600，不要另建 500 / 700 样式——工具会取最近字重，或者直接合成。
 
@@ -249,7 +249,7 @@ Dab Sans 没有中英边界的字距：`kern` 只覆盖拉丁字形，汉字、�
 - 中文引号里包英文句子时，句子内部仍用英文标点：`他说：“It works.” 然后走了。`
 - 数字、版本号、日期、百分比、URL 内部用 ASCII 标点：`3,755`、`8,915`、`12.8%`、`v3.2.1`、`2026-11-11`。
 - 数字与单位之间按英文习惯空一格：`10 GB`、`24 px`；百分号紧贴数字：`12.8%`。
-- 代码、命令行、路径、URL 用等宽字体，不参与中文标点规则：`/fonts/Dab Sans-Regular.woff2`。
+- 代码、命令行、路径、URL 用等宽字体，不参与中文标点规则：`/fonts/DabSans-Regular.woff2`。
 - 英文单词不要被拆行：`word-break: normal`；只有超长 URL 才用 `overflow-wrap: anywhere`。
 - 不要用 `text-autospace` 自动加空。各浏览器支持不一致，还可能和手打空格叠加；手打空格是唯一来源。
 
@@ -258,7 +258,7 @@ Dab Sans 没有中英边界的字距：`kern` 只覆盖拉丁字形，汉字、�
 ```css
 @font-face {
   font-family: "Dab Mono";
-  src: local("☺"), url("/fonts/Dab Mono-Regular.woff2") format("woff2");
+  src: local("☺"), url("/fonts/DabMono-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

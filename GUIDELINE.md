@@ -12,9 +12,10 @@
 ## 加载
 
 ```css
+/* 正文 */
 @font-face {
   font-family: "Dab Sans";
-  src: local("☺"), url("/fonts/Dab Sans-Regular.woff2") format("woff2");
+  src: local("☺"), url("/fonts/DabSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -22,7 +23,24 @@
 
 @font-face {
   font-family: "Dab Sans";
-  src: local("☺"), url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
+  src: local("☺"), url("/fonts/DabSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 等宽 */
+@font-face {
+  font-family: "Dab Mono";
+  src: local("☺"), url("/fonts/DabMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dab Mono";
+  src: local("☺"), url("/fonts/DabMono-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -32,39 +50,23 @@ body {
   font-family: "Dab Sans", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
 }
-```
 
-- `local("☺")` 是**一个不存在的字体名**，放在 `src` 最前面，用于强制浏览器使用后面的 Web Font。本机若装有同名或同族字体，不加这句浏览器会优先用本地版本，字重和标点宽度都不可控。
-- `"Dab Sans"` 必须排在字体栈第一位，后面跟系统 CJK 字体兜底。
-- 只有 400 / 600 两档。
-
-## 标点
-
-中文用中文码位，留白按英文：
-
-| 位置 | 空格数 | 例子 |
-|---|---|---|
-| 标点后接正文 | 1 | `先发布。␣再测试。` |
-| 标点前 | 0 | `字体。`，不写 `字体␣。` |
-| 相邻标点之间 | 0 | `。”`　`》，`　`）！` |
-| 开符号与前文、内侧 | 0 | `他说：“好”`　`一份《规范》` |
-| 破折号、省略号前后 | 0 | `字体——很精细`　`想了想……` |
-
-- 省略号写 `……`，破折号写 `——`，间隔号用 `·`。
-- 中文引号在字体里是 Inter 的窄引号，内侧永远紧贴内容，不要为"补宽"加空格。
-- 标点已半角化，advance 为半个汉字（470/1000 em），右侧不再自带留白——这正是要补一个空格的原因。
-
-## 等宽
-
-```css
 code, pre, kbd, samp {
   font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 ```
 
-- `Dab Mono` 来自 Geist Mono，只有等宽场景用它；正文不要用。
-- 它的拉丁基线同样上移了 0.0115 em，行内 `code` 不会比旁边的汉字低。
-- 400 / 600 两档，与正文字重一一对应。
+- `local("☺")` 是**一个不存在的字体名**，放在每个 `src` 最前面，用于强制浏览器使用后面的 Web Font。本机若装有同名或同族字体，不加这句浏览器会优先用本地版本，字重和标点宽度都不可控。两个家族都要写。
+- `"Dab Sans"` 必须排在正文字体栈第一位，后面跟系统 CJK 字体兜底。
+- 两个家族各自只有 400 / 600 两档，一一对应。
+- `Dab Mono` 只进等宽栈，不要放进 `body`。
+
+## 等宽
+
+- `Dab Mono` 来自 Geist Mono，只用于 `code` / `pre` / `kbd` / `samp`，正文和标题不要用。
+- 每个字符定宽 `0.6em`；拉丁基线同样上移 `0.0115em`，行内 `code` 不会比旁边的汉字低。
+- 代码块内部不套用中文标点留白规则。
+
 
 ## 中英混排
 
