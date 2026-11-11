@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DabFonts · 半角标点</title>
+<title>Dab Sans · 半角标点</title>
 <style>
-  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
-  @font-face{font-family:"DabFonts";font-weight:600;font-display:block;src:url(fonts/dab-600.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:400;font-display:block;src:url(fonts/sans-400.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:600;font-display:block;src:url(fonts/sans-600.woff2) format("woff2");}
   @font-face{font-family:"BeforePunct";font-weight:400;font-display:block;src:url(fonts/before-400.woff2) format("woff2");}
   @font-face{font-family:"BeforePunct";font-weight:700;font-display:block;src:url(fonts/before-700.woff2) format("woff2");}
 
@@ -43,7 +43,7 @@
   .body p{margin:0 0 1em}
   .body p:last-child{margin:0}
   .old .body{font-family:"BeforePunct",-apple-system,"PingFang SC",sans-serif}
-  .new .body{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif}
+  .new .body{font-family:"Dab Sans",-apple-system,"PingFang SC",sans-serif}
   .punct{letter-spacing:.01em}
   .dim{color:var(--muted);font-size:.8em}
 
@@ -59,7 +59,7 @@
 </head>
 <body>
 
-<div class="kicker">DabFonts / punctuation</div>
+<div class="kicker">Dab Sans / punctuation</div>
 <h1>把中文标点换成 Noto 自己的半角</h1>
 <p class="lede">
   不再自制造型：<code>hwid</code>（GSUB 半角变体）用在有专门字形的地方——（ ）［］｛｝，～ 等 10 个；
@@ -127,7 +127,7 @@
     document.body.appendChild(probe);
     probe.style.fontFamily = '"BeforePunct"';
     const wOld = probe.getBoundingClientRect().width;
-    probe.style.fontFamily = '"DabFonts"';
+    probe.style.fontFamily = '"Dab Sans"';
     const wNew = probe.getBoundingClientRect().width;
     probe.remove();
     $('w-old').textContent = wOld.toFixed(1);

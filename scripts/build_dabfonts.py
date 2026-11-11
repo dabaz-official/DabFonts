@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DabFonts build.
+"""Dab Sans + Dab Mono build.
 
   Latin / Greek / Cyrillic / digits / Latin punctuation -> Inter 4.001
   Han (GB2312 level-1, 3,755 characters)                -> Noto Sans SC 2.004
@@ -8,7 +8,8 @@
   Anything else                                         -> Inter if it has the codepoint,
                                                            otherwise absent (system fallback)
 
-Outputs dist/DabFonts-{Regular,SemiBold}.{ttf,woff2}.
+Outputs dist/DabSans-{Regular,SemiBold}.{ttf,woff2} and
+  dist/DabMono-{Regular,SemiBold}.{ttf,woff2}.
 Intermediates land in build/ and are inputs for scripts/build_web_assets.py.
 """
 import os
@@ -28,7 +29,7 @@ OFL_NOTICE = (
     "Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter). "
     "Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. "
     "Copyright 2022 The Noto Project Authors. "
-    "DabFonts is a merge of Inter and Noto Sans SC, created for personal, "
+    "Dab Sans is a merge of Inter and Noto Sans SC, created for personal, "
     "non-commercial use. Licensed under the SIL Open Font License, Version 1.1: "
     "https://openfontlicense.org"
 )
@@ -57,6 +58,15 @@ HALFWIDTH_PUNCT = [
     0xFF1A, 0xFF1B, 0xFF1F,                              # ： ； ？
     0xFF3B, 0xFF3D, 0xFF5B, 0xFF5D, 0xFF5E,              # ［ ］ ｛ ｝ ～
 ]
+
+MONO_SRC = "GeistMono-VF.ttf"
+MONO_NOTICE = (
+    "Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font). "
+    "Dab Mono is a renamed, statically-instanced build of Geist Mono, "
+    "created for personal, non-commercial use. "
+    "Licensed under the SIL Open Font License, Version 1.1: "
+    "https://openfontlicense.org"
+)
 
 # Han blocks removed from the build; GB2312 level-1 is re-added afterwards.
 HAN_RANGES = [(0x3400, 0x4DBF), (0x4E00, 0x9FFF), (0xF900, 0xFAFF), (0x20000, 0x3FFFF)]
@@ -326,10 +336,10 @@ def build(weight, style):
 
     set_name(
         merged,
-        family="DabFonts",
+        family="Dab Sans",
         style=style,
-        full=f"DabFonts {style}",
-        ps=f"DabFonts-{style}",
+        full=f"Dab Sans {style}",
+        ps=f"DabSans-{style}",
         copyright_=OFL_NOTICE,
         license_desc=OFL_NOTICE,
     )
@@ -343,7 +353,7 @@ def build(weight, style):
     merged["hhea"].ascent = noto["hhea"].ascent
     merged["hhea"].descent = noto["hhea"].descent
 
-    out = os.path.join(OUT, f"DabFonts-{style}.ttf")
+    out = os.path.join(OUT, f"DabSans-{style}.ttf")
     merged.save(out)
     print(f"[{style}] wrote {out} ({os.path.getsize(out)/1e6:.1f} MB)", flush=True)
 
@@ -353,6 +363,36 @@ def build(weight, style):
     print(f"[{style}] wrote {out_w2} ({os.path.getsize(out_w2)/1e6:.2f} MB)", flush=True)
 
 
+def build_mono(weight, style):
+    """Geist Mono stays a separate family — it is only used for monospace runs."""
+    print(f"[Mono {style}] instancing Geist Mono wght={weight} ...", flush=True)
+    font = TTFont(os.path.join(SRC, MONO_SRC))
+    font = instantiateVariableFont(font, {"wght": weight}, inplace=False)
+    # Same optical lift as the Latin side so inline <code> sits level with the body.
+    transform_latin(font, LATIN_DY, 1.0)
+
+    set_name(
+        font,
+        family="Dab Mono",
+        style=style,
+        full=f"Dab Mono {style}",
+        ps=f"DabMono-{style}",
+        copyright_=MONO_NOTICE,
+        license_desc=MONO_NOTICE,
+    )
+
+    out = os.path.join(OUT, f"DabMono-{style}.ttf")
+    font.save(out)
+    print(f"[Mono {style}] wrote {out} ({os.path.getsize(out)/1e6:.2f} MB)", flush=True)
+
+    font.flavor = "woff2"
+    out_w2 = out.replace(".ttf", ".woff2")
+    font.save(out_w2)
+    print(f"[Mono {style}] wrote {out_w2} ({os.path.getsize(out_w2)/1e6:.2f} MB)", flush=True)
+
+
 if __name__ == "__main__":
     for w, s in ((400, "Regular"), (600, "SemiBold")):
         build(w, s)
+    for w, s in ((400, "Regular"), (600, "SemiBold")):
+        build_mono(w, s)

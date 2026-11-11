@@ -1,5 +1,7 @@
 # DabFonts
 
+**字族名：`Dab Sans`（正文）/ `Dab Mono`（等宽）。** 本仓库沿用项目名 DabFonts。
+
 个人项目用的中英混排字体：**Inter 4.001** 的拉丁部分 + **Noto Sans SC 2.004** 的中文部分，合并成单一字族。
 
 - 汉字只保留 **GB2312 一级 3,755 个常用字**
@@ -17,38 +19,45 @@
 
 ```css
 @font-face {
-  font-family: "DabFonts";
+  font-family: "Dab Sans";
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/DabFonts-Regular.woff2") format("woff2");
+  src: url("/fonts/Dab Sans-Regular.woff2") format("woff2");
 }
 @font-face {
-  font-family: "DabFonts";
+  font-family: "Dab Sans";
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/DabFonts-SemiBold.woff2") format("woff2");
+  src: url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
 }
 
 body {
-  font-family: "DabFonts", -apple-system, BlinkMacSystemFont,
+  font-family: "Dab Sans", -apple-system, BlinkMacSystemFont,
                "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* 等宽：独立字族，只在 code / pre 用 */
+code, pre, kbd, samp {
+  font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 ```
 
 - 只有 400 / 600 两个字重；中间字重会就近取用（500 → 400，700 → 600），不要依赖合成
 - **不要**再开 `font-feature-settings: "palt"`，标点已经是半角
 - 3,755 字之外的汉字会自动回落到后面的系统字体，这是设计行为
+- 等宽用独立的 `Dab Mono`（Geist Mono），不参与合并
 
 ### 桌面
 
-安装 `dist/DabFonts-Regular.ttf` 与 `dist/DabFonts-SemiBold.ttf` 即可，族名 `DabFonts`。
+安装 `dist/Dab Sans-Regular.ttf` 与 `dist/Dab Sans-SemiBold.ttf` 即可，族名 `Dab Sans`。等宽另装 `dist/Dab Mono-*.ttf`。
 
 ## 目录
 
 ```
 sources/     Inter / Noto Sans SC 可变字体原件 + OFL 许可
 scripts/     build_dabfonts.py（主构建）/ build_web_assets.py（页面子集）/ serve.py
-dist/        DabFonts-{Regular,SemiBold}.{ttf,woff2}
+dist/        Dab Sans-{Regular,SemiBold}.{ttf,woff2}（正文）
+             Dab Mono-{Regular,SemiBold}.{ttf,woff2}（等宽）
 history/     改动前的快照，供对照与回退
 demo/        index.html（三方案对照）/ punct.html（标点）/ scale.html（缩放）/ align.html（垂直对齐）
 build/       中间产物，可删
@@ -64,6 +73,7 @@ build/       中间产物，可删
 | `“ ” ‘ ’` `…` `—` `·` | **Inter** | 共用码位，按"英文标点用 Inter"处理 |
 | `〖〗` | Noto Sans SC | 保持全角 940 |
 | 其他全角形式 | Noto Sans SC | |
+| 等宽场景（`code` / `pre` / 路径 / 版本号） | **Geist Mono**（家族名 `Dab Mono`） | 独立字族，不参与合并 |
 | 韩文 / 阿拉伯文 / 天城文 / 泰文 / 扩展 B | — | 回落到系统字体 |
 
 ## 构建
@@ -125,7 +135,7 @@ apple.com.cn 首页的 `SFProPingFangSC-Regular.woff2` 是把系统 PingFang 整
 | 对象 | 拉丁大写中心 | 汉字中心 | 残差 |
 |---|---|---|---|
 | 原始 Inter / Noto | 0.3640 | 0.3755 | 0.0115 |
-| DabFonts | 0.3700 | 0.3751 | 0.005 |
+| Dab Sans | 0.3700 | 0.3751 | 0.005 |
 | Apple 官网 SF Pro / PingFang | 0.3530 | 0.3563 | 0.0033 |
 
 `LATIN_DY` 是**成对**常数，换中文字体要重算：若改用 PingFang（汉字中心 0.3563），Inter 反而要下移。
@@ -159,6 +169,7 @@ Noto Sans SC 的 GSUB 带一个 `locl` 查找，包含 668 条拉丁字形替换
 SIL Open Font License 1.1。衍生字体同样以 OFL 发布，不得单独售卖字体本身。
 
 - Inter：© The Inter Project Authors，OFL 1.1，无 Reserved Font Name
+- Geist Mono：© 2024 The Geist Project Authors，OFL 1.1，无 Reserved Font Name（重命名为 `Dab Mono`）
 - Noto Sans SC：© 2014-2021 Adobe，OFL 1.1，保留字体名 `Source`（本字体名称不含 `Source`）
 
 版权声明保留在字体 name 表中。本项目仅用于个人非商业用途。

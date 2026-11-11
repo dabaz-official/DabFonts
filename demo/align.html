@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DabFonts · 拉丁/汉字垂直对齐校准</title>
+<title>Dab Sans · 拉丁/汉字垂直对齐校准</title>
 <style>
-  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
-  @font-face{font-family:"DabFonts";font-weight:600;font-display:block;src:url(fonts/dab-600.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:400;font-display:block;src:url(fonts/sans-400.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:600;font-display:block;src:url(fonts/sans-600.woff2) format("woff2");}
 
   :root{--bg:#fbfaf8;--panel:#fff;--ink:#141414;--muted:#6b6b6b;--line:#e6e2dc;--accent:#b23a2e}
   *{box-sizing:border-box}
@@ -34,7 +34,7 @@
   .presets button:hover{border-color:var(--accent);color:var(--accent)}
 
   .stage{max-width:1180px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 30px 30px}
-  .sample{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif;--dy:0.0115;--ls:1;--fs:24px;
+  .sample{font-family:"Dab Sans",-apple-system,"PingFang SC",sans-serif;--dy:0.0115;--ls:1;--fs:24px;
           font-size:var(--fs);line-height:1.85}
   .sample p{margin:0 0 .9em}
   .sample p:last-child{margin:0}
@@ -52,13 +52,13 @@
 </head>
 <body>
 
-<div class="kicker">DabFonts / vertical alignment</div>
+<div class="kicker">Dab Sans / vertical alignment</div>
 <h1>拉丁与汉字，垂直方向到底差多少</h1>
 <p class="lede">
   Apple 中文官网发了一个叫 <code>SFProPingFangSC-Regular.woff2</code> 的文件。拆开看：<b>SF Pro 大写中心 0.3530 em</b>，
   <b>PingFang 汉字中心 0.3563 em</b>，残差 <code>0.0033 em</code>——约 0.06 像素。他们并没有做什么对齐 hack，
   是两个字族本来就按同一套垂直标准画的。
-  <br>我们这边：Inter 0.3640 vs Noto 0.3755，差 0.0115。这一版 DabFonts 已把 <b>+0.0115 em 烤进字形</b>
+  <br>我们这边：Inter 0.3640 vs Noto 0.3755，差 0.0115。这一版 Dab Sans 已把 <b>+0.0115 em 烤进字形</b>
   （<code>A</code> 的 bbox 从 0–728 变成 12–740），残差 <code>0.0005 em</code>，比 Apple 还紧一点。
   下面的滑块是"在此之上的额外偏移"，用来验证再移多少会开始难看。
 </p>
@@ -67,7 +67,7 @@
   <div class="fact"><dt>Inter 大写中心</dt><dd>0.3640<small>em</small></dd></div>
   <div class="fact"><dt>Noto 汉字中心</dt><dd>0.3755<small>em</small></dd></div>
   <div class="fact"><dt>原始差</dt><dd>+0.0115<small>em</small></dd></div>
-  <div class="fact"><dt>DabFonts 残差</dt><dd>0.0005<small>em ≈ 0.01px</small></dd></div>
+  <div class="fact"><dt>Dab Sans 残差</dt><dd>0.0005<small>em ≈ 0.01px</small></dd></div>
   <div class="fact"><dt>Apple 残差</dt><dd>0.0033<small>em ≈ 0.06px</small></dd></div>
 </dl>
 
@@ -85,7 +85,7 @@
 
 <div class="stage">
   <div class="sample" id="sample">
-    <p><span class="lat">DabFonts</span> 把 <span class="lat">Inter</span> 和 <span class="lat">Noto Sans SC</span> 合并成一个字体。</p>
+    <p><span class="lat">Dab Sans</span> 把 <span class="lat">Inter</span> 和 <span class="lat">Noto Sans SC</span> 合并成一个字体。</p>
     <p><span class="lat">ABC abc 0123456789</span> 中文汉字排版对齐</p>
     <p class="bigpairs"><span class="lat">A</span>中 <span class="lat">B</span>文 <span class="lat">x</span>字 <span class="lat">g</span>永 <span class="lat">H</span>国 <span class="lat">1</span>一</p>
     <p style="font-size:.82em;color:#6b6b6b"><span class="lat">The quick brown fox</span> 跳过了那只懒狗，<span class="lat">baseline</span> 是唯一真正共享的参考线。</p>

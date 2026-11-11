@@ -39,8 +39,8 @@ jobs = [
     (os.path.join(BUILD, "inter-600.ttf"), os.path.join(FONTS, "inter-600.woff2")),
     (os.path.join(BUILD, "noto-400.ttf"),  os.path.join(FONTS, "noto-400.woff2")),
     (os.path.join(BUILD, "noto-600.ttf"),  os.path.join(FONTS, "noto-600.woff2")),
-    (os.path.join(DIST, "DabFonts-Regular.ttf"), os.path.join(FONTS, "dab-400.woff2")),
-    (os.path.join(DIST, "DabFonts-SemiBold.ttf"), os.path.join(FONTS, "dab-600.woff2")),
+    (os.path.join(DIST, "DabSans-Regular.ttf"), os.path.join(FONTS, "sans-400.woff2")),
+    (os.path.join(DIST, "DabSans-SemiBold.ttf"), os.path.join(FONTS, "sans-600.woff2")),
     # history/v1: full-width punctuation, full Han set
     (os.path.join(HIST, "v1-fullwidth/DabFonts-Regular.ttf"),
      os.path.join(FONTS, "before-400.woff2")),
@@ -69,11 +69,19 @@ for src, out in jobs:
     ], check=True)
     print(f"  {os.path.basename(out):22s} {os.path.getsize(out)/1024:8.1f} KB")
 
+# ---- mono family: shipped whole, no subsetting needed (40 KB) ----
+import shutil
+for style, name in (("Regular", "mono-400"), ("SemiBold", "mono-600")):
+    src = os.path.join(DIST, f"DabMono-{style}.woff2")
+    dst = os.path.join(FONTS, f"{name}.woff2")
+    shutil.copyfile(src, dst)
+    print(f"  {name + '.woff2':22s} {os.path.getsize(dst)/1024:8.1f} KB (copied)")
+
 # ---- self-contained build (index.html only) ----
 page = html
 for name in ("inter-400", "inter-600", "noto-400", "noto-600",
-             "dab-400", "dab-600", "before-400", "before-700",
-             "unscaled-400", "unscaled-700"):
+             "sans-400", "sans-600", "before-400", "before-700",
+             "unscaled-400", "unscaled-700", "mono-400", "mono-600"):
     path = os.path.join(FONTS, f"{name}.woff2")
     b64 = base64.b64encode(open(path, "rb").read()).decode()
     page = page.replace(f"fonts/{name}.woff2", f"data:font/woff2;base64,{b64}")

@@ -1,4 +1,4 @@
-# DabFonts 使用准则
+# Dab Sans 使用准则
 
 > 精简版。完整规范与推导见 `TYPESETTING.md`。
 
@@ -13,29 +13,29 @@
 
 ```css
 @font-face {
-  font-family: "DabFonts";
-  src: local("☺"), url("/fonts/DabFonts-Regular.woff2") format("woff2");
+  font-family: "Dab Sans";
+  src: local("☺"), url("/fonts/Dab Sans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "DabFonts";
-  src: local("☺"), url("/fonts/DabFonts-SemiBold.woff2") format("woff2");
+  font-family: "Dab Sans";
+  src: local("☺"), url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 body {
-  font-family: "DabFonts", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Dab Sans", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
 }
 ```
 
 - `local("☺")` 是**一个不存在的字体名**，放在 `src` 最前面，用于强制浏览器使用后面的 Web Font。本机若装有同名或同族字体，不加这句浏览器会优先用本地版本，字重和标点宽度都不可控。
-- `"DabFonts"` 必须排在字体栈第一位，后面跟系统 CJK 字体兜底。
+- `"Dab Sans"` 必须排在字体栈第一位，后面跟系统 CJK 字体兜底。
 - 只有 400 / 600 两档。
 
 ## 标点
@@ -54,9 +54,21 @@ body {
 - 中文引号在字体里是 Inter 的窄引号，内侧永远紧贴内容，不要为"补宽"加空格。
 - 标点已半角化，advance 为半个汉字（470/1000 em），右侧不再自带留白——这正是要补一个空格的原因。
 
+## 等宽
+
+```css
+code, pre, kbd, samp {
+  font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+```
+
+- `Dab Mono` 来自 Geist Mono，只有等宽场景用它；正文不要用。
+- 它的拉丁基线同样上移了 0.0115 em，行内 `code` 不会比旁边的汉字低。
+- 400 / 600 两档，与正文字重一一对应。
+
 ## 中英混排
 
-- 汉字与拉丁字母、数字之间：1 个空格（`使用 DabFonts 渲染 3,755 个汉字`）
+- 汉字与拉丁字母、数字之间：1 个空格（`使用 Dab Sans 渲染 3,755 个汉字`）
 - 汉字与汉字之间：0 个（`中文字体`）
 - 数字与单位：`10 GB`；百分号紧贴：`12.8%`
 - 英文句子用英文标点，中文句子用中文标点，不混用。

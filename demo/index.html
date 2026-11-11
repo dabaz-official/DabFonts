@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DabFonts · 中英混排对照</title>
+<title>Dab Sans · 中英混排对照</title>
 <style>
   /* ---------- A/B 组用的独立字体（仅演示用，已按页面文字裁剪） ---------- */
   @font-face{font-family:"InterW";font-weight:400;font-display:block;src:url(fonts/inter-400.woff2) format("woff2");}
@@ -11,9 +11,11 @@
   @font-face{font-family:"NotoSC";font-weight:400;font-display:block;src:url(fonts/noto-400.woff2) format("woff2");}
   @font-face{font-family:"NotoSC";font-weight:600;font-display:block;src:url(fonts/noto-600.woff2) format("woff2");}
 
-  /* ---------- C 组：DabFonts 合并字体 ---------- */
-  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
-  @font-face{font-family:"DabFonts";font-weight:600;font-display:block;src:url(fonts/dab-600.woff2) format("woff2");}
+  /* ---------- C 组：Dab Sans 合并字体 ---------- */
+  @font-face{font-family:"Dab Sans";font-weight:400;font-display:block;src:url(fonts/sans-400.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:600;font-display:block;src:url(fonts/sans-600.woff2) format("woff2");}
+  @font-face{font-family:"Dab Mono";font-weight:400;font-display:block;src:url(fonts/mono-400.woff2) format("woff2");}
+  @font-face{font-family:"Dab Mono";font-weight:600;font-display:block;src:url(fonts/mono-600.woff2) format("woff2");}
 
   :root{
     --bg:#fbfaf8; --panel:#fff; --ink:#141414; --muted:#6b6b6b;
@@ -65,6 +67,17 @@
   .sample .langs{font-size:.85em;line-height:1.9;color:#333}
   .rule{height:1px;background:var(--line);margin:1.1em 0}
 
+  code, pre, kbd, samp{font-family:"Dab Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  .mono-strip{max-width:1440px;margin:20px auto 0;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden}
+  .mono-strip .panel-head{border-bottom:1px solid var(--line)}
+  .mono-body{padding:16px 22px 20px;font-size:15px;line-height:1.8}
+  .mono-body p{margin:0 0 .8em}
+  .mono-body pre{margin:0;background:#f6f3ef;border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;font-size:13.5px;overflow-x:auto}
+  .mono-body code{background:#f0ece7;padding:1px 5px;border-radius:3px;font-size:.92em}
+
   /* 中英共用码位标记 */
   .m{border-bottom:1px dashed #c9553f;padding-bottom:1px}
   .legend{max-width:1440px;margin:0 auto 18px;display:flex;align-items:center;gap:10px;
@@ -81,7 +94,7 @@
 
   .a .sample{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
   .b .sample{font-family:"InterW","NotoSC",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
-  .c .sample{font-family:"DabFonts",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+  .c .sample{font-family:"Dab Sans",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
 
   .flag{display:inline-block;font-size:10px;letter-spacing:.04em;color:#8a5a00;background:#fdf3d8;
         border:1px solid #f0e0b0;border-radius:4px;padding:1px 5px;vertical-align:middle;margin-left:4px;
@@ -94,11 +107,11 @@
 <body>
 
 <header>
-  <div class="kicker">DabFonts / merge test</div>
+  <div class="kicker">Dab Sans / merge test</div>
   <h1>同一段文字，三种字体方案</h1>
   <p class="lede">
     左：系统字体栈（B 站式）。中：<code>Inter + Noto Sans SC</code> 双字体栈，不做合并。
-    右：<code>DabFonts</code>，拉丁/数字/英文标点取 Inter，汉字与中文标点取 Noto Sans SC，
+    右：<code>Dab Sans</code>，拉丁/数字/英文标点取 Inter，汉字与中文标点取 Noto Sans SC，
     其余语言 Inter 有则用 Inter、没有则回退系统字体。拖动字号可放大看标点。
   </p>
 </header>
@@ -129,7 +142,7 @@
     <div class="panel-note"><code>PingFang SC → Microsoft YaHei</code>　B 站的做法：不下载字体，全靠本机。</div>
     <div class="sample" id="sA">
       <p class="h">他说：“这套字体——真的很精细……”</p>
-      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p>Dab Sans 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
       <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
       <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
       <div class="rule"></div>
@@ -144,7 +157,7 @@
     <div class="panel-note"><code>Inter, Noto Sans SC</code>　不做合并，靠 unicode-range 分工。</div>
     <div class="sample" id="sB">
       <p class="h">他说：“这套字体——真的很精细……”</p>
-      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p>Dab Sans 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
       <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
       <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
       <div class="rule"></div>
@@ -155,11 +168,11 @@
   </section>
 
   <section class="panel c">
-    <div class="panel-head"><span class="tag">C</span><span class="panel-name">DabFonts</span></div>
+    <div class="panel-head"><span class="tag">C</span><span class="panel-name">Dab Sans</span></div>
     <div class="panel-note"><code>单文件合并</code>　一个字族同时负责汉字、标点、拉丁。环球影城的做法。</div>
     <div class="sample" id="sC">
       <p class="h">他说：“这套字体——真的很精细……”</p>
-      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
+      <p>Dab Sans 把 Inter 和 Noto Sans SC 合并成一个字体：拉丁字母、数字、英文标点全部来自 Inter；汉字与中文标点来自 Noto Sans SC。</p>
       <p class="punct">。，、；：！？<span class="m">……</span><span class="m">——</span>《》【】「」（）</p>
       <p class="punct"><span class="m">“</span>中文双引号<span class="m">”</span> <span class="m">‘</span>中文单引号<span class="m">’</span> "ASCII quotes" 'single quote' <span class="m">…</span></p>
       <div class="rule"></div>
@@ -187,9 +200,21 @@
   </div>
 </div>
 
+<section class="mono-strip">
+  <div class="panel-head"><span class="tag">M</span><span class="panel-name">Dab Mono</span>
+    <span class="panel-note" style="border:0;padding:0 0 0 6px">Geist Mono 400 / 600　只在等宽场景使用</span></div>
+  <div class="mono-body">
+    <p>行内的 <code>font-family</code>、版本号 <code>v3.2.1</code>、数值 <code>3,755</code> 都用等宽；
+      拉丁基线跟正文一样上移过 0.0115 em，所以不会比旁边的汉字低半格。</p>
+    <pre>code, pre, kbd, samp {
+  font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}</pre>
+  </div>
+</section>
+
 <footer>
   字体来源：Inter 4.001（OFL 1.1，Inter Project Authors）、Noto Sans SC 2.004（OFL 1.1，Adobe / Google，保留字体名 <code>Source</code>）。
-  合并产物 <code>DabFonts</code> 同样以 OFL 1.1 发布，仅用于个人非商业项目。
+  合并产物 <code>Dab Sans</code> 同样以 OFL 1.1 发布，仅用于个人非商业项目。
   最后一行里的 阿拉伯文 / 天城文 / 韩文 / 泰文 / 扩展 B 汉字 不在字体覆盖范围内，由系统字体接管——这正是"用不了则用系统字体"的表现。<br>
   构建注记：合并后已从 Noto 侧移除 <code>locl</code> 特性。它在 <code>lang=zh-CN</code> 下会自动启用，把 668 个拉丁字形替换成 Noto 自带版本，
   实测使 <code>A</code> 的宽度从 686 掉到 608——不处理的话，Inter 等于白合并。

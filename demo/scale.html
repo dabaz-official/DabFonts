@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DabFonts · 中文字面缩放</title>
+<title>Dab Sans · 中文字面缩放</title>
 <style>
-  @font-face{font-family:"DabFonts";font-weight:400;font-display:block;src:url(fonts/dab-400.woff2) format("woff2");}
-  @font-face{font-family:"DabFonts";font-weight:600;font-display:block;src:url(fonts/dab-600.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:400;font-display:block;src:url(fonts/sans-400.woff2) format("woff2");}
+  @font-face{font-family:"Dab Sans";font-weight:600;font-display:block;src:url(fonts/sans-600.woff2) format("woff2");}
   @font-face{font-family:"Unscaled";font-weight:400;font-display:block;src:url(fonts/unscaled-400.woff2) format("woff2");}
   @font-face{font-family:"Unscaled";font-weight:700;font-display:block;src:url(fonts/unscaled-700.woff2) format("woff2");}
 
@@ -43,7 +43,7 @@
   .body p{margin:0 0 1em}
   .body p:last-child{margin:0}
   .old .body{font-family:"Unscaled",-apple-system,"PingFang SC",sans-serif}
-  .new .body{font-family:"DabFonts",-apple-system,"PingFang SC",sans-serif}
+  .new .body{font-family:"Dab Sans",-apple-system,"PingFang SC",sans-serif}
   .dim{color:var(--muted);font-size:.8em}
 
   .measure{max-width:1180px;margin-top:16px;background:var(--panel);border:1px solid var(--line);
@@ -58,7 +58,7 @@
 </head>
 <body>
 
-<div class="kicker">DabFonts / cjk scale</div>
+<div class="kicker">Dab Sans / cjk scale</div>
 <h1>把中文字面缩到 94%，对齐 Apple 的比例</h1>
 <p class="lede">
   Apple 首页那份 webfont 是把 PingFang 整体缩到 <code>0.886</code> 再上移 <code>44/1000 em</code>；
@@ -84,7 +84,7 @@
     <div class="head"><span class="tag">缩放前</span><span class="name">汉字 1000/1000</span><span class="sub">v2 snapshot</span></div>
     <div class="body">
       <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
-      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
+      <p>Dab Sans 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
       <p class="dim">0123456789 · ABCDabcd · 中文汉字排版</p>
     </div>
   </section>
@@ -93,7 +93,7 @@
     <div class="head"><span class="tag">缩放后</span><span class="name">汉字 940/1000</span><span class="sub">scale 0.94</span></div>
     <div class="body">
       <p>他说：“这套字体——真的很精细……”然后笑了笑，递给我一份《排版规范》。</p>
-      <p>DabFonts 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
+      <p>Dab Sans 把 Inter 和 Noto Sans SC 合并成一个字体，汉字与拉丁共用一条基线。</p>
       <p class="dim">0123456789 · ABCDabcd · 中文汉字排版</p>
     </div>
   </section>
@@ -126,7 +126,7 @@
     document.body.appendChild(probe);
     probe.style.fontFamily = '"Unscaled"';
     const wOld = probe.getBoundingClientRect().width;
-    probe.style.fontFamily = '"DabFonts"';
+    probe.style.fontFamily = '"Dab Sans"';
     const wNew = probe.getBoundingClientRect().width;
     probe.remove();
     $('w-old').textContent = wOld.toFixed(1);

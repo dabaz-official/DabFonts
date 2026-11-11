@@ -7,7 +7,7 @@
 | `v1-fullwidth/` | 20,976（全量） | 全角 1000 | 1000 | `demo/punct.html` 的「旧」栏 |
 | `v2-halfwidth-unscaled/` | 3,755（GB2312 一级） | 半角 500 | 1000 | `demo/scale.html` 的「缩放前」栏 |
 
-当前构建（`../DabFonts-*`）= v2 + 汉字缩放 0.94（advance 940）。
+当前构建（`../DabSans-*`、`../DabMono-*`）= v2 + 汉字缩放 0.94（advance 940）。
 
 v1 只保留 TTF（网页对照用的子集由 `demo/build_web_assets.py` 生成）；
 v2 保留 TTF + woff2。

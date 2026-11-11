@@ -1,9 +1,9 @@
-# DabFonts 使用规范
+# Dab Sans 使用规范
 
 > 版本 1.0 · 2026-11-12
-> 适用：`dist/DabFonts-{Regular,Bold}.{ttf,woff2}`，Inter 4.001 + Noto Sans SC 2.004 合并版
+> 适用：`dist/Dab Sans-{Regular,Bold}.{ttf,woff2}`，Inter 4.001 + Noto Sans SC 2.004 合并版
 
-DabFonts 把拉丁和汉字放进了同一个字族：拉丁、数字、英文标点来自 Inter；汉字和中文标点来自 Noto Sans SC。它不是“另一个中文字体”，而是一套把中西文放进同一套度量里的排版方案。也正因为如此，它的使用规则和普通中文字体不同，**标点尤其不同**。
+Dab Sans 把拉丁和汉字放进了同一个字族：拉丁、数字、英文标点来自 Inter；汉字和中文标点来自 Noto Sans SC。它不是“另一个中文字体”，而是一套把中西文放进同一套度量里的排版方案。也正因为如此，它的使用规则和普通中文字体不同，**标点尤其不同**。
 
 **硬规则：中文页面里的标点，按英文页面的规则留白——标点紧贴前文，标点后空一格。**
 
@@ -13,7 +13,7 @@ DabFonts 把拉丁和汉字放进了同一个字族：拉丁、数字、英文�
 Ship it. Then test.
 ```
 
-中文页面用 DabFonts 时，写成：
+中文页面用 Dab Sans 时，写成：
 
 ```
 先发布。 再测试。
@@ -21,9 +21,9 @@ Ship it. Then test.
 
 区别只是码位：中文用 `。`，英文用 `.`；留白规则是同一套。
 
-这条规则只适用于 DabFonts。换回 PingFang、思源黑体等全角标点的字体时，按那套字体的规则排版，不要照搬这里的空格。
+这条规则只适用于 Dab Sans。换回 PingFang、思源黑体等全角标点的字体时，按那套字体的规则排版，不要照搬这里的空格。
 
-本文档本身用系统字体阅读，正文按常规中文排版书写，不额外加空格；文中所有示例展示的是 DabFonts 页面里应该写成的样子。
+本文档本身用系统字体阅读，正文按常规中文排版书写，不额外加空格；文中所有示例展示的是 Dab Sans 页面里应该写成的样子。
 
 ## 0. 速查
 
@@ -58,9 +58,9 @@ Ship it. Then test.
 | 小型大写 | 无 | 不要合成 |
 | 竖排 | 无 | 构建时已删除 `vhea` / `vmtx` |
 | 可变轴 | 无 | 构建时已实例化 |
-| 等宽 | 无 | 代码用系统等宽字体 |
+| 等宽 | `Dab Mono` | Geist Mono 1.701 改名构建，400 / 600，仅用于 mono 场景 |
 
-这张表决定了两件事：第一，DabFonts 只能当“主字体”，不能当“唯一字体”，后面必须跟一套系统字体栈；第二，任何“再压缩一下标点”“再用斜体强调一下”的想法，都会超出字体本身的能力。
+这张表决定了两件事：第一，Dab Sans 只能当“主字体”，不能当“唯一字体”，后面必须跟一套系统字体栈；第二，任何“再压缩一下标点”“再用斜体强调一下”的想法，都会超出字体本身的能力。
 
 ## 2. 载入
 
@@ -68,23 +68,23 @@ Ship it. Then test.
 
 ```css
 @font-face {
-  font-family: "DabFonts";
-  src: url("/fonts/DabFonts-Regular.woff2") format("woff2");
+  font-family: "Dab Sans";
+  src: url("/fonts/Dab Sans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "DabFonts";
-  src: url("/fonts/DabFonts-SemiBold.woff2") format("woff2");
+  font-family: "Dab Sans";
+  src: url("/fonts/Dab Sans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --font-sans: "DabFonts", -apple-system, BlinkMacSystemFont,
+  --font-sans: "Dab Sans", -apple-system, BlinkMacSystemFont,
                "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
@@ -102,14 +102,14 @@ button, input, select, textarea {
 首屏用到的字重可以预加载；两个都预加载是 1.6 MB，通常不值得。
 
 ```html
-<link rel="preload" href="/fonts/DabFonts-Regular.woff2"
+<link rel="preload" href="/fonts/Dab Sans-Regular.woff2"
       as="font" type="font/woff2" crossorigin>
 ```
 
 几条硬性要求：
 
-- **DabFonts 必须排在字体栈第一位。** 把 `Inter`、`PingFang SC` 放在它前面，汉字或拉丁会被前面的字体接管，合并就白做了。
-- **CSS 族名写 `"DabFonts"`**，不要写 `"DabFonts Regular"`；Regular / Bold 由 `font-weight` 选。
+- **Dab Sans 必须排在字体栈第一位。** 把 `Inter`、`PingFang SC` 放在它前面，汉字或拉丁会被前面的字体接管，合并就白做了。
+- **CSS 族名写 `"Dab Sans"`**，不要写 `"Dab Sans Regular"`；Regular / Bold 由 `font-weight` 选。
 - **`font-synthesis: none`。** 字体没有斜体，中间字重也不该由浏览器伪造。
 - **`font-display: swap` 用于正文**；截图页、对比页可以用 `block`，避免 FOUT 影响测量。
 - **自托管**，不要把仓库里的 `dist/` 当 CDN 热链。
@@ -117,7 +117,7 @@ button, input, select, textarea {
 
 ### 2.2 桌面
 
-安装 `dist/DabFonts-Regular.ttf` 与 `dist/DabFonts-SemiBold.ttf`，族名 `DabFonts`。在应用里选 400 或 600；不要只装一个再让系统合成另一个。
+安装 `dist/Dab Sans-Regular.ttf` 与 `dist/Dab Sans-SemiBold.ttf`，族名 `Dab Sans`。在应用里选 400 或 600；不要只装一个再让系统合成另一个。
 
 Figma 等设计工具里，把 Regular 映射到 400、SemiBold 映射到 600，不要另建 500 / 700 样式——工具会取最近字重，或者直接合成。
 
@@ -228,7 +228,7 @@ R4 是中文特有的例外：英文会在开括号前空一格（`word (test)`�
 - 中文破折号写两个 `——`（U+2014 ×2），不写 `--`，也不写单个 `—`。
 - 间隔号用 `·`（U+00B7），不用 `•` 或 `.`。
 - 引号外层 `“”`、内层 `‘’`；书名号外层 `《》`、内层 `〈〉`。
-- 中文引号在 DabFonts 里是 Inter 的窄引号，不要为了“补宽”在引号内侧加空格；内侧永远紧贴内容。
+- 中文引号在 Dab Sans 里是 Inter 的窄引号，不要为了“补宽”在引号内侧加空格；内侧永远紧贴内容。
 - 不要用全角空格 U+3000 做缩进或对齐，用 CSS `text-indent` / `margin` / `padding`。
 
 ### 3.5 换行与行首行尾
@@ -241,31 +241,42 @@ R4 是中文特有的例外：英文会在开括号前空一格（`word (test)`�
 
 ## 4. 中英混排
 
-DabFonts 没有中英边界的字距：`kern` 只覆盖拉丁字形，汉字、中文标点都不在 kerning 覆盖里。所以中英之间**必须用真实空格分隔**，不能指望字体自动收紧或撑开。
+Dab Sans 没有中英边界的字距：`kern` 只覆盖拉丁字形，汉字、中文标点都不在 kerning 覆盖里。所以中英之间**必须用真实空格分隔**，不能指望字体自动收紧或撑开。
 
-- 汉字与拉丁字母、数字之间，各留一个空格：`使用 DabFonts 渲染 3,755 个汉字。`
+- 汉字与拉丁字母、数字之间，各留一个空格：`使用 Dab Sans 渲染 3,755 个汉字。`
 - 汉字与汉字之间不加空格：写 `中文字体`，不写 `中 文 字 体`。
-- 英文片段用英文标点和英文空格，中文片段用中文标点：`DabFonts 有两个字重。 It ships in 400 and 600. 中文继续。`
+- 英文片段用英文标点和英文空格，中文片段用中文标点：`Dab Sans 有两个字重。 It ships in 400 and 600. 中文继续。`
 - 中文引号里包英文句子时，句子内部仍用英文标点：`他说：“It works.” 然后走了。`
 - 数字、版本号、日期、百分比、URL 内部用 ASCII 标点：`3,755`、`8,915`、`12.8%`、`v3.2.1`、`2026-11-11`。
 - 数字与单位之间按英文习惯空一格：`10 GB`、`24 px`；百分号紧贴数字：`12.8%`。
-- 代码、命令行、路径、URL 用等宽字体，不参与中文标点规则：`/fonts/DabFonts-Regular.woff2`。
+- 代码、命令行、路径、URL 用等宽字体，不参与中文标点规则：`/fonts/Dab Sans-Regular.woff2`。
 - 英文单词不要被拆行：`word-break: normal`；只有超长 URL 才用 `overflow-wrap: anywhere`。
 - 不要用 `text-autospace` 自动加空。各浏览器支持不一致，还可能和手打空格叠加；手打空格是唯一来源。
 
-等宽字体栈可以直接用系统自带的：
+等宽用独立的 `Dab Mono`（Geist Mono）：
 
 ```css
+@font-face {
+  font-family: "Dab Mono";
+  src: local("☺"), url("/fonts/Dab Mono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 code, pre, kbd, samp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 ```
+
+`Dab Mono` 的拉丁部分同样上移了 0.0115em，行内 `code` 的基线不会比正文汉字低。
+它只用于等宽场景，正文、标题不要用。
 
 一段完整的混排示例：
 
 ```
-使用 DabFonts 渲染 3,755 个汉字。
-DabFonts 有两个字重。 It ships in 400 and 600. 中文继续。
+使用 Dab Sans 渲染 3,755 个汉字。
+Dab Sans 有两个字重。 It ships in 400 and 600. 中文继续。
 他说：“It works.” 然后走了。
 3,755 个汉字、 8,915 个码位、 12.8%、 10 GB
 ```
@@ -286,7 +297,7 @@ DabFonts 有两个字重。 It ships in 400 and 600. 中文继续。
 这些是推荐值，不是字体的硬限制，但有两件事必须做：
 
 - **显式设置 `line-height`。** 字体的 `line-height: normal` 大约是 1.45（hhea 1160 / −288），不同引擎还可能取 OS/2 typo 的 1.0；对中文正文都偏紧。
-- **不要低于 1.6。** 中文没有词间空格，行距太紧会糊成一片；DabFonts 的汉字还缩到了 0.94，字面更小，行距需要相对更松一点。
+- **不要低于 1.6。** 中文没有词间空格，行距太紧会糊成一片；Dab Sans 的汉字还缩到了 0.94，字面更小，行距需要相对更松一点。
 
 ### 5.2 行宽与缩进
 
@@ -351,7 +362,7 @@ em {
 
 ## 7. HTML / Markdown 源码写法
 
-HTML 会把换行和缩进折叠成一个空格。这个行为对 DabFonts 来说既是工具也是陷阱：放在标点后面，它正好就是你要的那个空格；放在两个汉字之间，它就是一个不该出现的空格。
+HTML 会把换行和缩进折叠成一个空格。这个行为对 Dab Sans 来说既是工具也是陷阱：放在标点后面，它正好就是你要的那个空格；放在两个汉字之间，它就是一个不该出现的空格。
 
 - 标点后的空格要是真实的文本节点。把标点和下一句拆进两个相邻的内联标签时，空格必须留在标签之间：
 
@@ -368,15 +379,15 @@ HTML 会把换行和缩进折叠成一个空格。这个行为对 DabFonts 来�
 
 ## 8. 生僻字与回落
 
-DabFonts 只保留 GB2312 一级 3,755 个汉字。`囧`、`屌`、`垚`、`犇`、`淼`、`龘`、`𠮷` 都不在字体里，会回落到字体栈后面的系统字体。
+Dab Sans 只保留 GB2312 一级 3,755 个汉字。`囧`、`屌`、`垚`、`犇`、`淼`、`龘`、`𠮷` 都不在字体里，会回落到字体栈后面的系统字体。
 
 回落带来的问题不是“缺字”，而是“不一样”：
 
-- 系统 CJK 字体的汉字 advance 是 1000，DabFonts 是 940；同一个字号下，生僻字看起来会大约大 6%，而且笔画粗细、字面重心都可能不同。
+- 系统 CJK 字体的汉字 advance 是 1000，Dab Sans 是 940；同一个字号下，生僻字看起来会大约大 6%，而且笔画粗细、字面重心都可能不同。
 - 人名、地名、品牌名、古文引用是重灾区。页面里出现这类内容时，逐个看一遍。
-- 日文假名在字体里，但汉字覆盖只有 GB2312 一级，不建议用 DabFonts 排日文。
+- 日文假名在字体里，但汉字覆盖只有 GB2312 一级，不建议用 Dab Sans 排日文。
 - 韩文、阿拉伯文、天城文、泰文、Emoji 都回落系统字体；字体栈里必须有一套完整的系统 CJK 字体兜底。
-- 如果页面主要由生僻字构成，不要用 DabFonts，或者单独扩展子集；这已经超出本规范的范围。
+- 如果页面主要由生僻字构成，不要用 Dab Sans，或者单独扩展子集；这已经超出本规范的范围。
 
 ## 9. 发布前检查
 
@@ -400,7 +411,7 @@ DabFonts 只保留 GB2312 一级 3,755 个汉字。`囧`、`屌`、`垚`、`犇`
 
 | 项 | 值 |
 |---|---|
-| 字族名 | DabFonts |
+| 字族名 | Dab Sans |
 | 字重 | Regular 400 / SemiBold 600 |
 | UPM | 1000 |
 | 码位 / 字形 | 8,915 / 9,312 |
@@ -413,7 +424,7 @@ DabFonts 只保留 GB2312 一级 3,755 个汉字。`囧`、`屌`、`垚`、`犇`
 | 默认行高 | `normal` ≈ 1.45（不要依赖） |
 | 竖排 | 无 `vhea` / `vmtx` |
 | 斜体 / 可变轴 / 小型大写 | 无 |
-| 文件 | 每个字重：TTF 约 1.9 MB；woff2 约 801 / 817 KB |
+| 文件 | 正文每字重：TTF 约 1.9 MB；woff2 约 801 / 817 KB。等宽每字重：TTF 约 100 KB；woff2 约 35 KB |
 | 许可 | SIL Open Font License 1.1 |
 
 OpenType 特性：
@@ -425,7 +436,7 @@ OpenType 特性：
 
 ## 11. 许可
 
-DabFonts 以 SIL Open Font License 1.1 发布。可以嵌入网页和 PDF，可以随项目分发；不得单独售卖字体文件，衍生字体同样以 OFL 发布。版权声明保留在字体 `name` 表中。
+Dab Sans 以 SIL Open Font License 1.1 发布。可以嵌入网页和 PDF，可以随项目分发；不得单独售卖字体文件，衍生字体同样以 OFL 发布。版权声明保留在字体 `name` 表中。
 
 - Inter：© The Inter Project Authors，OFL 1.1
 - Noto Sans SC：© 2014–2021 Adobe，OFL 1.1，保留字体名 `Source`
