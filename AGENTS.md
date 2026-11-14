@@ -41,6 +41,7 @@ Recorded exceptions under DabAgents rule 04 §9. Review date: 2027-11-14.
 - **No CI.** The repository produces static font files and Markdown; there is no test runner or service to exercise. Verification is `make web`, `ls -l dist/`, and the fact-checking commands in the release checklist.
 - **No unit tests.** The build is a one-shot artifact pipeline whose output is inspected as fonts and rendered pages, not as library functions. A change is verified by comparing `dist/` metrics and the demo pages.
 - **No deploy target.** Consumers copy `dist/` into their own projects. There is no staging or production surface to deploy.
+- **Committed `dist/` and `history/`.** DabAgents rule 03 §7 excludes build artifacts from commits; here `dist/` is the product (TTF, woff2, and the OFL notice) and `history/` holds rollback snapshots, so both are versioned on purpose. Review date: 2027-11-14.
 
 ## Language
 
