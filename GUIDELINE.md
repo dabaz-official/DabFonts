@@ -1,18 +1,18 @@
-# Dab Sans 使用准则
+# Dab Sans Guideline
 
-> 精简版。完整规范与推导见 `TYPESETTING.md`。
+> **Version:** 1.0.0 · 2026-11-15
+> **Read order:** this file → [`TYPESETTING.md`](TYPESETTING.md). This file is the summary; `TYPESETTING.md` is normative. The `@font-face` block below is copied from TYPESETTING §2.1 — canonical: TYPESETTING §2.1; if the two differ, §2.1 wins.
 
-**一句话：中文标点按英文的方式留白——标点紧贴前文，标点后空一格。中文只是换码位，留白规则和英文完全相同。**
+**One sentence: Chinese punctuation is spaced the way English punctuation is — the mark hugs the text before it, and one space follows it. Chinese only changes the codepoint; the spacing rule is identical to English.**
 
 ```text
-英文：Ship it. Then test.
-中文：先发布。 再测试。
+English: Ship it. Then test.
+Chinese: 先发布。 再测试。
 ```
 
-## 加载
+## Loading
 
 ```css
-/* 正文 */
 @font-face {
   font-family: "Dab Sans";
   src: local("☺"), url("/fonts/DabSans-Regular.woff2") format("woff2");
@@ -29,7 +29,6 @@
   font-display: swap;
 }
 
-/* 等宽 */
 @font-face {
   font-family: "Dab Mono";
   src: local("☺"), url("/fonts/DabMono-Regular.woff2") format("woff2");
@@ -46,45 +45,51 @@
   font-display: swap;
 }
 
+:root {
+  --font-sans: "Dab Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
 body {
-  font-family: "Dab Sans", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 400;
   font-synthesis: none;
 }
 
-code, pre, kbd, samp {
-  font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+button, input, select, textarea {
+  font: inherit;
 }
 ```
 
-- `local("☺")` 是**一个不存在的字体名**，放在每个 `src` 最前面，用于强制浏览器使用后面的 Web Font。本机若装有同名或同族字体，不加这句浏览器会优先用本地版本，字重和标点宽度都不可控。两个家族都要写。
-- `"Dab Sans"` 必须排在正文字体栈第一位，后面跟系统 CJK 字体兜底。
-- 两个家族各自只有 400 / 600 两档，一一对应。
-- `Dab Mono` 只进等宽栈，不要放进 `body`。
+- `local("☺")` is **a font name that cannot exist**. It sits first in every `src` to force the browser to use the web font. Without it, a locally installed family of the same name takes priority and its weights and punctuation widths fall outside this specification. Both families need it on both faces.
+- `"Dab Sans"` must be first in the body stack; system CJK fonts follow as fallback.
+- Each family ships 400 and 600 only, one face per weight.
+- `Dab Mono` belongs in the monospace stack only. Do not put it in `body`.
 
-## 等宽
+## Line height and weights
 
-- `Dab Mono` 来自 Geist Mono，只用于 `code` / `pre` / `kbd` / `samp`，正文和标题不要用。
-- 每个字符定宽 `0.6em`；拉丁基线同样上移 `0.0115em`，行内 `code` 不会比旁边的汉字低。
-- 代码块内部不套用中文标点留白规则。
+- **Set `line-height` explicitly.** Body copy uses 1.75–1.85; never go below 1.6. Han is scaled to 0.94, so glyphs are smaller than in a normal CJK font at the same size; leading must stay relatively loose.
+- **Only 400 / 600.** 500 resolves to 400 and 700 to 600; do not rely on synthesized weights.
+- **No italic, no small caps.** The font has neither; the browser would synthesize both. The emphasis treatment is the design system's decision.
+- Exact font sizes, exact line-height values, measure, first-line indent, and weight-to-role mapping belong to the consuming design system. For the DabAZ site that is DabDesign's `core.md` §4.2 and §7: <https://github.com/dabaz-official/DabDesign/blob/main/core.md>. This repository owns the font and its consequences, not the scale.
 
+## Monospace
 
-## 中英混排
+- `Dab Mono` is built from Geist Mono and is used only for `code` / `pre` / `kbd` / `samp`; never for body text or headings. Its faces are declared in the canonical block above.
+- Every character advances `0.6em`. The Latin side is raised by the same `0.0115em`, so inline `code` does not sit lower than the surrounding Han.
+- The Chinese punctuation spacing rules do not apply inside code blocks.
 
-- 汉字与拉丁字母、数字之间：1 个空格（`使用 Dab Sans 渲染 3,755 个汉字`）
-- 汉字与汉字之间：0 个（`中文字体`）
-- 数字与单位：`10 GB`；百分号紧贴：`12.8%`
-- 英文句子用英文标点，中文句子用中文标点，不混用。
-- 不用 U+3000 缩进，用 `text-indent: 1.88em`（两个汉字）。
+## CJK–Latin mixing
 
-## 字重与强调
+- Between Han and Latin letters or digits: one space (`使用 Dab Sans 渲染 3,755 个汉字`).
+- Between Han characters: zero (`中文字体`).
+- Numbers and units: `10 GB`; the percent sign hugs the number: `12.8%`.
+- English sentences use English punctuation; Chinese sentences use Chinese punctuation. Do not mix them.
+- Never use U+3000 for indentation or alignment; use CSS `text-indent` / `margin` / `padding`. The indent value is the design system's decision.
 
-- 只用 400 / 600；500 会落到 400，700 会落到 600。
-- 没有斜体、没有小型大写：`<em>` 用 600 并把 `font-style` 设为 `normal`。
+## Do not write
 
-## 不要写
+`palt` / `halt` / `hwid` / `fwid` / `pwid`, `text-autospace`, `text-spacing-trim`, body `letter-spacing`, changed `word-spacing`, `font-style: italic`, `writing-mode: vertical-rl`, or a second `transform` on Latin runs.
 
-`palt` / `halt` / `hwid` / `fwid` / `pwid`、`text-autospace`、`text-spacing-trim`、正文 `letter-spacing`、改 `word-spacing`、`font-style: italic`、`writing-mode: vertical-rl`、对西文的二次 `transform`。
+## Fallback
 
-## 回落
-
-字体只含 GB2312 一级 3,755 个汉字。生僻字会回落到系统字体，字面大约大 6%；人名、地名、品牌名要逐个检查。
+The font contains 3,755 GB2312 level-1 Han characters. Rare characters fall back to system fonts and their glyphs run roughly 6% larger; check personal names, place names, and brand names one by one.
