@@ -37,9 +37,12 @@ First semantic-version release, aligned with DabAgents 1.0.0. The repository sta
 - The `locl` note corrected: the Noto Sans SC 2.004 source carries 28 single substitutions (digits and punctuation), not 668 Latin substitutions; Inter's `A` stays at 686 units.
 - woff2 and TTF sizes replaced with byte-exact values for all eight shipped files.
 - The contradictory version/build date lines in `TYPESETTING.md` replaced by 1.0.0 and the release date.
-- The claim that there is no 300/500/600 corrected: 600 is shipped; no 300, 500, or 700.
+- The weight list corrected: the font ships 400 and 600 only, with no 300, 500, or 700.
 - `history/README.md` paths corrected to `../dist/DabSans-*`, `dist/`, and `scripts/build_web_assets.py`.
-- The `build_web_assets.py` mono comment corrected from 40 KB to about 35 KB.
+- The `build_web_assets.py` mono comment now records the measured ~35 KB size.
+- The DabAgents pin now points to `ebd76db` on `main`; the previous SHA was an unreachable squash experiment.
+- `AGENTS.md` exceptions now cite rule numbers and record the release-branch and no-package-script exceptions.
+- `README.md` now states that `make build` must precede `make web`; the demo assets are generated and gitignored.
 
 ## Pre-1.0
 
