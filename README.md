@@ -13,7 +13,7 @@ Result: 9,312 glyphs / 8,915 codepoints; TTF 1,947,184 B; woff2 821,000 B (801.8
 
 ## Usage
 
-Typography and loading rules live in [GUIDELINE.md](GUIDELINE.md); the normative reference is [TYPESETTING.md](TYPESETTING.md). TYPESETTING §2.1 is the canonical `@font-face` block; `GUIDELINE.md` carries a verbatim copy, and this README does not repeat it. The one stack to use:
+Typography and loading rules live in [GUIDELINE.md](GUIDELINE.md); the normative reference is [TYPESETTING.md](TYPESETTING.md). TYPESETTING §2.1 is the canonical `@font-face` block; `GUIDELINE.md` carries a verbatim copy, and this README does not repeat it. The repository contract (pinned DabAgents commit, commands, Definition of Done, exceptions) is in [AGENTS.md](AGENTS.md). The one stack to use:
 
 ```css
 body {
@@ -54,6 +54,8 @@ make build   # writes dist/
 make web     # writes demo/fonts/ and demo/dabfonts-demo.html
 make serve   # http://127.0.0.1:8099/index.html
 ```
+
+Run `make build` before `make web`. `demo/fonts/` and `demo/dabfonts-demo.html` are generated and gitignored, so a fresh clone has no demo fonts until both commands run.
 
 `build_dabfonts.py` runs these steps:
 
