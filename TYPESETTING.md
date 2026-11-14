@@ -307,7 +307,8 @@ For body text, use 1.75–1.85. Exact font sizes, exact line-height values, meas
 There are only two real weights, 400 and 600. Which role uses which weight belongs to the consuming design system.
 
 - Do not use 300, 500, 700, or intermediate values such as 450. CSS resolves 500 to 400 and 700 to 600; the font has no variable axis, so intermediate values do not interpolate. “It looks like it worked” only means the browser rounded to the nearest weight.
-- Do not use italic. The font has no italic and the browser will synthesize an oblique; Han glyphs deform. - Do not use `font-variant: small-caps`. There are no small capitals and the browser will synthesize them.
+- Do not use italic. The font has no italic and the browser will synthesize an oblique; Han glyphs deform.
+- Do not use `font-variant: small-caps`. There are no small capitals and the browser will synthesize them.
 
 `<em>` and `<i>` are italic by default and must be reset. The replacement emphasis style (weight or color) is the design system's decision:
 
@@ -318,6 +319,8 @@ em, i {
 ```
 
 ### 5.3 Alignment, tracking, and features
+
+Alignment strategy, tracking policy, and numeral style belong to the consuming design system. The points below are the font's constraints, not a second scale.
 
 - Justified text stretches the spaces after punctuation along with everything else, which produces uneven gaps on lines with many marks. If the design system calls for `justify`, check each line.
 - Body text uses `letter-spacing: 0`. If tracking is used at all, keep it at or below `0.02em`; `letter-spacing` also acts on punctuation and spaces and therefore erodes the calibrated half-width rhythm.
