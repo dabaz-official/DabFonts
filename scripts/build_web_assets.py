@@ -69,7 +69,7 @@ for src, out in jobs:
     ], check=True)
     print(f"  {os.path.basename(out):22s} {os.path.getsize(out)/1024:8.1f} KB")
 
-# ---- mono family: shipped whole, no subsetting needed (40 KB) ----
+# ---- mono family: shipped whole, no subsetting needed (~35 KB) ----
 import shutil
 for style, name in (("Regular", "mono-400"), ("SemiBold", "mono-600")):
     src = os.path.join(DIST, f"DabMono-{style}.woff2")
