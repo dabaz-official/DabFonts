@@ -42,10 +42,9 @@ None of them contains `Source`, `Noto`, `Inter`, or `Geist`.
 - `name` IDs 0 and 13 in every binary — the copyright notices, readable by the
   user from the font itself (OFL 1.1 §2).
 
-## Name table: personal, non-commercial wording
+## Name table
 
-`name` IDs 0 and 13 in the current binaries end with the sentence
-“created for personal, non-commercial use”. That sentence states the
-maintainer's intent; it is not a term of the license and it does not narrow the
-OFL grant, which permits commercial use. It will be removed from the `name`
-table at the next rebuild, so that the binaries match this file exactly.
+`name` IDs 0 and 13 in every binary carry the copyright notices and the OFL
+reference, and nothing else. An earlier build appended “created for personal,
+non-commercial use”; that sentence was removed, because a statement in the
+metadata reads like a license term and OFL 1.1 permits commercial use.
