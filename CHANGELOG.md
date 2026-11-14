@@ -2,6 +2,13 @@
 
 All notable changes to this repository are recorded here. The format follows Keep a Changelog; versions follow semantic versioning.
 
+## [Unreleased]
+
+### Changed
+
+- The font `name` table no longer carries a “personal, non-commercial use” sentence in IDs 0 and 13. It was never a term of the OFL, but a statement in the metadata reads like one; `LICENSE`, `NOTICE.md`, and the binaries now agree.
+- File sizes in `README.md` and `TYPESETTING.md` were re-measured from the rebuilt `dist/`.
+
 ## [1.0.0] - 2026-11-15
 
 First semantic-version release, aligned with DabAgents 1.0.0. The repository stays a font-and-specification dependency: no package, no npm artifact, no deploy target.

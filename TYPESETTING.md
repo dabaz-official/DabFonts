@@ -419,7 +419,7 @@ Overall acceptance criteria: DabAgents rule 04, `rules/04-quality.md`.
 | Default line height | `normal` ≈ 1.45 (do not rely on it) |
 | Vertical writing | No `vhea` / `vmtx` |
 | Italic / variable axes / small caps | None |
-| Files | Sans per weight: TTF 1,947,184 B (Regular) / 1,946,904 B (SemiBold); woff2 821,000 B / 835,452 B (801.8 / 815.9 KiB). Mono per weight: TTF 102,552 B / 102,524 B; woff2 35,464 B / 36,720 B (34.6 / 35.9 KiB) |
+| Files | Sans per weight: TTF 1,947,056 B (Regular) / 1,946,776 B (SemiBold); woff2 820,348 B / 835,400 B (801.1 / 815.8 KiB). Mono per weight: TTF 102,424 B / 102,396 B; woff2 35,432 B / 36,744 B (34.6 / 35.9 KiB) |
 | License | SIL Open Font License 1.1 |
 
 OpenType features:
@@ -437,7 +437,7 @@ Dab Sans and Dab Mono are released under the SIL Open Font License 1.1. They may
 - Noto Sans SC: © 2014–2021 Adobe, OFL 1.1, with Reserved Font Name `Source`
 - Geist Mono: © 2024 The Geist Project Authors, OFL 1.1
 
-The font `name` table says “personal, non-commercial use”. That records the maintainer's intent and is not an additional term of the OFL; OFL 1.1 itself permits commercial use.
+The font `name` table carries the copyright notices and the OFL reference in IDs 0 and 13. Nothing there narrows the license: OFL 1.1 permits commercial use.
 
 ---
 

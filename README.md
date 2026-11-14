@@ -9,7 +9,7 @@ A mixed Chinese–English typeface for personal projects: the Latin side of **In
 - The CJK side is scaled to **0.94** to match the Latin/CJK proportion used on Apple's site
 - Latin is raised **0.0115 em** to share the optical centre with Han
 
-Result: 9,312 glyphs / 8,915 codepoints; TTF 1,947,184 B; woff2 821,000 B (801.8 KiB), Regular.
+Result: 9,312 glyphs / 8,915 codepoints; TTF 1,947,056 B; woff2 820,348 B (801.1 KiB), Regular.
 
 ## Usage
 
@@ -147,4 +147,4 @@ SIL Open Font License 1.1. Derivatives are released under the OFL as well, and t
 - Geist Mono: © 2024 The Geist Project Authors, OFL 1.1, no Reserved Font Name (renamed `Dab Mono`)
 - Noto Sans SC: © 2014–2021 Adobe, OFL 1.1, Reserved Font Name `Source` (this font's name does not contain `Source`)
 
-Copyright notices are preserved in the font `name` table. The “personal, non-commercial” wording there is the maintainer's intent, not an additional term of the OFL; OFL 1.1 itself permits commercial use. [NOTICE.md](NOTICE.md) collects the third-party notices and points at the upstream texts under `sources/`; [LICENSE](LICENSE) carries the license, and `dist/OFL.txt` carries the same text for anyone who copies `dist/` alone.
+Copyright notices are preserved in the font `name` table, in IDs 0 and 13, together with the OFL reference; nothing there narrows the grant. [NOTICE.md](NOTICE.md) collects the third-party notices and points at the upstream texts under `sources/`; [LICENSE](LICENSE) carries the license, and `dist/OFL.txt` carries the same text for anyone who copies `dist/` alone.

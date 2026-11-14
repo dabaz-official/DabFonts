@@ -29,8 +29,8 @@ OFL_NOTICE = (
     "Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter). "
     "Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. "
     "Copyright 2022 The Noto Project Authors. "
-    "Dab Sans is a merge of Inter and Noto Sans SC, created for personal, "
-    "non-commercial use. Licensed under the SIL Open Font License, Version 1.1: "
+    "Dab Sans is a merge of Inter and Noto Sans SC. "
+    "Licensed under the SIL Open Font License, Version 1.1: "
     "https://openfontlicense.org"
 )
 
@@ -62,8 +62,7 @@ HALFWIDTH_PUNCT = [
 MONO_SRC = "GeistMono-VF.ttf"
 MONO_NOTICE = (
     "Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font). "
-    "Dab Mono is a renamed, statically-instanced build of Geist Mono, "
-    "created for personal, non-commercial use. "
+    "Dab Mono is a renamed, statically-instanced build of Geist Mono. "
     "Licensed under the SIL Open Font License, Version 1.1: "
     "https://openfontlicense.org"
 )
