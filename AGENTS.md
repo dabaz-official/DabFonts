@@ -34,6 +34,18 @@ This repository owns the font files, family names, `@font-face`, the fallback st
 
 DabDesign owns the type scale (`type-*` font sizes), exact line-height values, measure, first-line indent, alignment strategy, tracking, numeral style, and weight-to-role mapping. Do not add those values here; link to `DabDesign/GUIDELINE.md` instead.
 
+## Versioning
+
+Versions are this repository's own; they do not track DabAgents or DabDesign.
+Consumers pin all three independently.
+
+- **Major** — the glyph set, a metric, or the family and `name` table changes,
+  so an existing page reflows or the family stops being a drop-in.
+- **Minor** — the specification gains a rule or a capability that leaves
+  existing rendering unchanged.
+- **Patch** — licensing, notices, wording, or metadata that does not change
+  rendering.
+
 ## Exceptions
 
 Recorded under DabAgents rule 04 §9. Owner: repository maintainer. Review date: 2027-11-14.
