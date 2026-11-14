@@ -1,75 +1,77 @@
-# Dab Sans 使用规范
+# Dab Sans Typesetting Specification
 
-> 版本 1.0 · 2026-11-12
-> 适用：`dist/DabSans-{Regular,Bold}.{ttf,woff2}`，Inter 4.001 + Noto Sans SC 2.004 合并版
+> **Version:** 1.0.0 · 2026-11-15
+> **Applies to:** `dist/DabSans-{Regular,SemiBold}.{ttf,woff2}` — Inter 4.001 + Noto Sans SC 2.004 merged build
+> **Read order:** [`GUIDELINE.md`](GUIDELINE.md) is the entry point; this file is the normative reference. §2.1 is the canonical `@font-face` block.
 
-Dab Sans 把拉丁和汉字放进了同一个字族：拉丁、数字、英文标点来自 Inter；汉字和中文标点来自 Noto Sans SC。它不是“另一个中文字体”，而是一套把中西文放进同一套度量里的排版方案。也正因为如此，它的使用规则和普通中文字体不同，**标点尤其不同**。
+Dab Sans puts Latin and Han into one family: Latin, digits, and Latin punctuation come from Inter; Han and Chinese punctuation come from Noto Sans SC. It is not “another Chinese font” but a typographic scheme that places both scripts on one set of metrics. Its rules differ from those of an ordinary Chinese font — **punctuation most of all**.
 
-**硬规则：中文页面里的标点，按英文页面的规则留白——标点紧贴前文，标点后空一格。**
+**Hard rule: punctuation in a Chinese page follows the spacing of an English page — a mark hugs the text before it, and one space follows it.**
 
-英文页面本来就是这样写的：
+An English page is written that way already:
 
 ```
 Ship it. Then test.
 ```
 
-中文页面用 Dab Sans 时，写成：
+A Chinese page set in Dab Sans is written like this:
 
 ```
 先发布。 再测试。
 ```
 
-区别只是码位：中文用 `。`，英文用 `.`；留白规则是同一套。
+The only difference is the codepoint: `。` instead of `.`. The spacing rule is the same.
 
-这条规则只适用于 Dab Sans。换回 PingFang、思源黑体等全角标点的字体时，按那套字体的规则排版，不要照搬这里的空格。
+This rule applies to Dab Sans only. With PingFang, Source Han Sans, or another full-width punctuation font, follow that font's rules and do not copy the spaces used here.
 
-本文档本身用系统字体阅读，正文按常规中文排版书写，不额外加空格；文中所有示例展示的是 Dab Sans 页面里应该写成的样子。
+This document is read in system fonts and follows conventional typography without added spaces; every example shows the spacing a Dab Sans page should contain.
 
-## 0. 速查
+## 0. Quick reference
 
-| 事项 | 规则 |
+| Item | Rule |
 |---|---|
-| 中文标点 | 用中文码位；句读标点和闭符号后接正文时 1 个 U+0020；标点前 0 个 |
-| 成对符号 | 开符号贴前文和内容；闭符号后接正文时 1 个空格 |
-| 相邻标点 | 不空格：`。”`、`》，`、`）！` |
-| 破折号 / 省略号 | `——`、`……`；破折号前后不空；省略号前不空 |
-| 中英之间 | 汉字与拉丁字母、数字之间 1 个空格 |
-| 汉字之间 | 0 个空格；不用 U+3000 |
-| 字重 | 只用 400 / 600 |
-| 斜体 | 不用；强调用 600 或颜色 |
-| 行高 | 正文 1.75–1.85；必须显式设置 |
-| 行宽 | 34–38em，约 36–40 个汉字 |
-| OpenType | 不开 `palt` / `halt` / `hwid` / `fwid` / `pwid` |
-| 竖排 | 不支持 |
-| 生僻字 | 回落系统字体，字面会略大 |
+| Chinese punctuation | Use Chinese codepoints; after a sentence mark or closing mark followed by text, one U+0020; zero before the mark |
+| Paired marks | An opening mark hugs the preceding text and the content; a closing mark followed by text takes one space |
+| Adjacent marks | No space: `。”`, `》，`, `）！` |
+| Dash / ellipsis | `——`, `……`; no space around a dash; no space before an ellipsis |
+| CJK–Latin | One space between Han and Latin letters or digits |
+| Han–Han | No space; do not use U+3000 |
+| Weights | 400 / 600 only |
+| Italic | None; emphasize with 600 or color |
+| Line height | Body 1.75–1.85; always set explicitly |
+| OpenType | Never enable `palt` / `halt` / `hwid` / `fwid` / `pwid` |
+| Vertical writing | Not supported |
+| Rare characters | Fall back to system fonts; glyphs run slightly larger |
 
-## 1. 能力边界
+## 1. Capability boundaries
 
-| 能力 | 状态 | 说明 |
+| Capability | Status | Notes |
 |---|---|---|
-| 汉字 | 3,755 字 | GB2312 一级；之外的汉字回落系统字体 |
-| 半角化中文标点 | 28 个 | advance 470；见 §3.4 |
-| 拉丁 / 希腊 / 西里尔 / 越南文 | 有 | Inter |
-| 日文假名 | 有 | Noto；但不建议排日文，汉字覆盖不全 |
-| 韩文 / 阿拉伯文 / 天城文 / 泰文 | 无 | 回落系统字体 |
-| Emoji | 无 | 回落系统字体 |
-| 字重 | 400 / 600 | 没有 300 / 500 / 700 |
-| 斜体 | 无 | 不要合成 |
-| 小型大写 | 无 | 不要合成 |
-| 竖排 | 无 | 构建时已删除 `vhea` / `vmtx` |
-| 可变轴 | 无 | 构建时已实例化 |
-| 等宽 | `Dab Mono` | Geist Mono 1.701 改名构建，400 / 600，仅用于 mono 场景 |
+| Han | 3,755 characters | GB2312 level 1; characters outside the set fall back to system fonts |
+| Half-width Chinese punctuation | 28 marks | advance 470; see §3.4 |
+| Latin / Greek / Cyrillic / Vietnamese | Yes | Inter |
+| Japanese kana | Yes | Noto; do not set Japanese with this font, Han coverage is incomplete |
+| Korean / Arabic / Devanagari / Thai | No | Falls back to system fonts |
+| Emoji | No | Falls back to system fonts |
+| Weights | 400 / 600 | No 300 / 500 / 700 |
+| Italic | None | Do not synthesize |
+| Small caps | None | Do not synthesize |
+| Vertical writing | None | `vhea` / `vmtx` were deleted in the build |
+| Variable axes | None | Instantiated in the build |
+| Monospace | `Dab Mono` | Geist Mono 1.701 renamed build, 400 / 600, monospace runs only |
 
-这张表决定了两件事：第一，Dab Sans 只能当“主字体”，不能当“唯一字体”，后面必须跟一套系统字体栈；第二，任何“再压缩一下标点”“再用斜体强调一下”的想法，都会超出字体本身的能力。
+This table decides two things. First, Dab Sans can only be the primary font, never the only font; a system font stack must follow it. Second, any attempt to “compress the punctuation a little more” or “emphasize with italic” exceeds what the font provides.
 
-## 2. 载入
+## 2. Loading
 
-### 2.1 网页
+### 2.1 Web
+
+This is the canonical `@font-face` block. If a copy elsewhere differs, this section wins.
 
 ```css
 @font-face {
   font-family: "Dab Sans";
-  src: url("/fonts/DabSans-Regular.woff2") format("woff2");
+  src: local("☺"), url("/fonts/DabSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -77,15 +79,30 @@ Ship it. Then test.
 
 @font-face {
   font-family: "Dab Sans";
-  src: url("/fonts/DabSans-SemiBold.woff2") format("woff2");
+  src: local("☺"), url("/fonts/DabSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dab Mono";
+  src: local("☺"), url("/fonts/DabMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dab Mono";
+  src: local("☺"), url("/fonts/DabMono-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --font-sans: "Dab Sans", -apple-system, BlinkMacSystemFont,
-               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-sans: "Dab Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 body {
@@ -99,56 +116,57 @@ button, input, select, textarea {
 }
 ```
 
-首屏用到的字重可以预加载；两个都预加载是 1.6 MB，通常不值得。
+Preload the weight used above the fold; preloading both is about 1.6 MB and usually not worth it.
 
 ```html
 <link rel="preload" href="/fonts/DabSans-Regular.woff2"
       as="font" type="font/woff2" crossorigin>
 ```
 
-几条硬性要求：
+Hard requirements:
 
-- **Dab Sans 必须排在字体栈第一位。** 把 `Inter`、`PingFang SC` 放在它前面，汉字或拉丁会被前面的字体接管，合并就白做了。
-- **CSS 族名写 `"Dab Sans"`**，不要写 `"Dab Sans Regular"`；Regular / Bold 由 `font-weight` 选。
-- **`font-synthesis: none`。** 字体没有斜体，中间字重也不该由浏览器伪造。
-- **`font-display: swap` 用于正文**；截图页、对比页可以用 `block`，避免 FOUT 影响测量。
-- **自托管**，不要把仓库里的 `dist/` 当 CDN 热链。
-- 如果为页面做子集，**必须把 U+0020 和页面用到的所有标点一起打进去**。空格缺了，浏览器会拿 fallback 字体的空格顶上（通常比 278 宽），标点后的留白会突然变宽，整套节奏就变了。
+- **Dab Sans must be first in the font stack.** Putting `Inter` or `PingFang SC` ahead of it lets the earlier font take over Han or Latin, and the merge is wasted.
+- **Write the CSS family name as `"Dab Sans"`**, not `"Dab Sans Regular"`; `font-weight` selects Regular or SemiBold.
+- **`local("☺")` in every `src`, ahead of the URL.** It is a font name that cannot exist, so the browser is forced to use the web font. Without it, a locally installed family of the same name takes priority and its weights and punctuation widths are outside this specification. All four faces carry it.
+- **`font-synthesis: none`.** The font has no italic and no intermediate weights, and the browser must not fake either.
+- **`font-display: swap` for body text**; screenshot and comparison pages may use `block` to keep FOUT out of measurements.
+- **Self-host the files**; do not hotlink `dist/` as a CDN.
+- **If you subset a page, include U+0020 and every punctuation mark the page uses.** Without the space, the browser supplies the fallback font's space (usually wider than 278) and the spacing after punctuation suddenly widens; the whole rhythm changes.
 
-### 2.2 桌面
+### 2.2 Desktop
 
-安装 `dist/DabSans-Regular.ttf` 与 `dist/DabSans-SemiBold.ttf`，族名 `Dab Sans`。在应用里选 400 或 600；不要只装一个再让系统合成另一个。
+Install `dist/DabSans-Regular.ttf` and `dist/DabSans-SemiBold.ttf`; the family name is `Dab Sans`. Select 400 or 600 in the application. Do not install only one and let the system synthesize the other.
 
-Figma 等设计工具里，把 Regular 映射到 400、SemiBold 映射到 600，不要另建 500 / 700 样式——工具会取最近字重，或者直接合成。
+In design tools such as Figma, map Regular to 400 and SemiBold to 600. Do not create 500 / 700 styles: the tool either picks the nearest weight or synthesizes one.
 
-## 3. 标点规则
+## 3. Punctuation rules
 
-### 3.1 六条规则
+### 3.1 The six rules
 
-**码位按语言选，留白按同一套规则。** 中文正文用中文标点，英文句子、代码、URL 用 ASCII 标点；两种语言都遵守“标点紧贴前文，标点后空一格”。
+**Choose the codepoint by language; apply one spacing rule to both.** Chinese body text uses Chinese punctuation; English sentences, code, and URLs use ASCII punctuation. Both follow “the mark hugs the preceding text, one space follows it”.
 
-下表用 `␣` 标出一个 U+0020 空格，只是为了看清位置；实际写作时输入普通空格。
+The tables below use `␣` to mark one U+0020 space so the position is visible; in real writing, type an ordinary space.
 
-| 编号 | 规则 | 例子 |
+| No. | Rule | Example |
 |---|---|---|
-| R1 | 句读标点后接正文时，加 1 个 U+0020 | `字体。␣页面`、`Inter，␣中文`、`结论：␣先合并` |
-| R2 | 标点前不加空格 | 写 `字体。`，不写 `字体␣。` |
-| R3 | 两个标点相邻时不加空格 | `。”`、`》，`、`）！` |
-| R4 | 开引号、开括号、开书名号紧贴前文，内侧紧贴内容 | `他说：“好”`、`页面（测试）`、`一份《规范》` |
-| R5 | 闭符号紧贴内容；后面接正文时加 1 个 U+0020 | `“好。”␣然后`、`（测试）␣通过`、`《规范》␣我读了` |
-| R6 | 破折号、间隔号前后不加空格；省略号前不加空格，表句末停顿且后接正文时加 1 个 | `字体——很精细`、`想了想……␣然后`、`弗拉基米尔·纳博科夫` |
+| R1 | After a sentence mark followed by text, add one U+0020 | `字体。␣页面`, `Inter，␣中文`, `结论：␣先合并` |
+| R2 | No space before a mark | Write `字体。`, not `字体␣。` |
+| R3 | No space between two adjacent marks | `。”`, `》，`, `）！` |
+| R4 | An opening quote, bracket, or title mark hugs the preceding text and the content | `他说：“好”`, `页面（测试）`, `一份《规范》` |
+| R5 | A closing mark hugs the content; when text follows, add one U+0020 | `“好。”␣然后`, `（测试）␣通过`, `《规范》␣我读了` |
+| R6 | No space around a dash or middle dot; no space before an ellipsis; one space after an ellipsis that ends a clause and is followed by text | `字体——很精细`, `想了想……␣然后`, `弗拉基米尔·纳博科夫` |
 
-R3 优先于 R1：`他说：“好。”` 里冒号后面紧跟开引号，两个标点相邻，所以冒号后不加空格；空格加在闭引号之后。同理，`。` 在闭引号内侧时，`。` 与 `”` 相邻，不加空格；空格加在 `”` 之后：`他说：“好。”␣然后走了。`
+R3 takes precedence over R1: in `他说：“好。”` the colon is immediately followed by an opening quote, so the colon takes no space; the space goes after the closing quote. Likewise, when `。` sits inside a closing quote, `。` and `”` are adjacent and take no space; the space goes after `”`: `他说：“好。”␣然后走了。`
 
-R4 是中文特有的例外：英文会在开括号前空一格（`word (test)`），中文不这样写。开引号、开括号、开书名号一律紧贴前文。
+R4 is the Chinese-specific exception: English puts a space before an opening parenthesis (`word (test)`); Chinese does not. Opening quotes, brackets, and title marks always hug the preceding text.
 
-### 3.2 为什么标点后要空一格
+### 3.2 Why a space follows the mark
 
-构建时，28 个中文标点先压到 Noto 的 500 半角度量，再随整个 CJK 侧缩放 0.94，最终 **advance = 470/1000 em**；汉字是 940。也就是说，一个中文标点正好占半个汉字宽，传统全角标点自带的那半个字宽留白没有了。
+In the build, the 28 Chinese punctuation marks are first reduced to Noto's 500 half-width metrics, then scaled with the whole CJK side by 0.94, ending at **advance 470/1000 em**; Han is 940. A Chinese mark therefore occupies exactly half a Han character, and the half-character of built-in white space that traditional full-width punctuation provides is gone.
 
-更关键的是，标点的墨迹留在字框左侧，右侧只剩很少的空白。以 Regular 为例（单位 /1000 em）：
+More importantly, the ink stays on the left of the frame and leaves very little white space on the right. Regular, in units /1000 em:
 
-| 标点 | advance | 墨迹右端 | 自带右侧留白 | 加一个空格后 |
+| Mark | advance | Ink right edge | Built-in right sidebearing | With one space |
 |---|---|---|---|---|
 | `。` | 470 | 326 | 144 | 422 |
 | `，` | 470 | 309 | 161 | 439 |
@@ -158,29 +176,29 @@ R4 是中文特有的例外：英文会在开括号前空一格（`word (test)`�
 | `”` | 429 | 392 | 37 | 315 |
 | `）` | 470 | 338 | 132 | 410 |
 
-一个 U+0020 在 Regular 里是 278。表中的“加一个空格后”只算标点自身留白加 278，不含下一个字左侧的 sidebearing。加一个空格后，右侧留白回到 300–450，接近正常中文的呼吸感；不加，问号、书名号、闭引号会直接贴住下一个字。
+A U+0020 in Regular is 278 (SemiBold 249). The “with one space” column adds the mark's own sidebearing to 278 and excludes the left sidebearing of the next character. With the space, right-side white space returns to 300–450, close to the breathing room of normal Chinese setting; without it, question marks, title marks, and closing quotes sit directly against the next character.
 
-所以这条规则不是“给中文加英文习惯”，而是**半角标点的必然结果**：英文靠空格分词、分句，中文标点现在也需要同样的处理。
+The rule is therefore not “adding an English habit to Chinese” but the necessary consequence of half-width punctuation: English separates words and clauses with spaces, and Chinese punctuation now needs the same treatment.
 
-> “半角”在本文里指 **advance 为半个汉字（470/1000 em）**，不是把中文标点换成 ASCII 半角字符。字形仍然是 `。，、`，只是宽度减半。
+> “Half-width” in this document means **advance of half a Han character (470/1000 em)**, not replacing Chinese punctuation with ASCII characters. The glyphs are still `。，、`; only the width is halved.
 
-### 3.3 正误对照
+### 3.3 Correct and incorrect
 
-| 场景 | 正确 | 错误 |
+| Case | Correct | Incorrect |
 |---|---|---|
-| 句号 | `先做字体。␣再做页面。` | `先做字体。再做页面。` |
-| 逗号 | `底层用 Inter，␣中文用 Noto。` | `底层用 Inter，中文用 Noto。` |
-| 顿号 | `苹果、␣香蕉、␣梨` | `苹果、香蕉、梨` |
-| 冒号 | `结论：␣先合并字体。` | `结论：先合并字体。` |
-| 问号 / 叹号 | `真的吗？␣我不信！` | `真的吗？我不信！` |
-| 引号 | `他说：“好。”␣然后走了。` | `他说：␣“好。”然后走了。` |
-| 括号 | `这一版（v3）␣只改了标点。` | `这一版（v3）只改了标点。` |
-| 书名号 | `我读了《规范》，␣记了两页。` | `我读了《规范》␣，记了两页。` |
-| 闭书名号 | `我读了《规范》␣两遍。` | `我读了《规范》两遍。` |
-| 省略号 | `他想了想……␣然后走了。` | `他想了想␣……然后走了。` |
-| 破折号 | `这套字体——真的很精细。` | `这套字体␣——␣真的很精细。` |
+| Full stop | `先做字体。␣再做页面。` | `先做字体。再做页面。` |
+| Comma | `底层用 Inter，␣中文用 Noto。` | `底层用 Inter，中文用 Noto。` |
+| Enumeration comma | `苹果、␣香蕉、␣梨` | `苹果、香蕉、梨` |
+| Colon | `结论：␣先合并字体。` | `结论：先合并字体。` |
+| Question / exclamation | `真的吗？␣我不信！` | `真的吗？我不信！` |
+| Quotes | `他说：“好。”␣然后走了。` | `他说：␣“好。”然后走了。` |
+| Parentheses | `这一版（v3）␣只改了标点。` | `这一版（v3）只改了标点。` |
+| Title marks | `我读了《规范》，␣记了两页。` | `我读了《规范》␣，记了两页。` |
+| Closing title mark | `我读了《规范》␣两遍。` | `我读了《规范》两遍。` |
+| Ellipsis | `他想了想……␣然后走了。` | `他想了想␣……然后走了。` |
+| Dash | `这套字体——真的很精细。` | `这套字体␣——␣真的很精细。` |
 
-可直接复制的一段：
+Copy-ready block:
 
 ```
 先做字体。 再做页面。
@@ -196,83 +214,74 @@ R4 是中文特有的例外：英文会在开括号前空一格（`word (test)`�
 这套字体——真的很精细。
 ```
 
-### 3.4 标点字符怎么选
+### 3.4 Choosing the character
 
-中文正文用中文字形，不用 ASCII 标点。ASCII 句号是实心点，中文句号是空心圆；ASCII 逗号更窄、更贴左，混在汉字里一眼就能看出来。
+Chinese body text uses Chinese glyphs, not ASCII punctuation. The ASCII full stop is a solid dot and the Chinese full stop is a hollow circle; the ASCII comma is narrower and sits further left, both obvious inside Han text.
 
-**半角中文标点（28 个，advance 470）**
+**Half-width Chinese punctuation (28 marks, advance 470)**
 
-| 组 | 字符 | 数量 |
+| Group | Characters | Count |
 |---|---|---|
-| 句读 | `。` `、` `，` `．` `！` `：` `；` `？` | 8 |
-| 成对 | `（` `）` `［` `］` `｛` `｝` `〈` `〉` `《` `》` `「` `」` `『` `』` `【` `】` `〔` `〕` | 18 |
-| 其他 | `／` `～` | 2 |
+| Sentence marks | `。` `、` `，` `．` `！` `：` `；` `？` | 8 |
+| Paired marks | `（` `）` `［` `］` `｛` `｝` `〈` `〉` `《` `》` `「` `」` `『` `』` `【` `】` `〔` `〕` | 18 |
+| Other | `／` `～` | 2 |
 
-**共用码位与其他例外**
+**Shared codepoints and other exceptions**
 
-| 字符 | 来源 | advance | 用法 |
+| Character | Source | advance | Use |
 |---|---|---|---|
-| `“` `”` | Inter | 429 | 中文双引号；比常规中文引号窄 |
-| `‘` `’` | Inter | 253 | 中文单引号；比常规中文引号窄 |
-| `…` | Inter | 841 | 中文省略号写两个 `……` |
-| `—` | Inter | 1000 | 中文破折号写两个 `——` |
-| `·` | Inter | 280 | 间隔号 |
-| `〖` `〗` | Noto | 940 | 仍是全角；一般不用 |
-| U+3000 | Noto | 940 | 不要用来缩进 |
+| `“` `”` | Inter | 429 | Chinese double quotes; narrower than conventional Chinese quotes |
+| `‘` `’` | Inter | 253 | Chinese single quotes; narrower than conventional Chinese quotes |
+| `…` | Inter | 841 | Write two `……` for a Chinese ellipsis |
+| `—` | Inter | 1000 | Write two `——` for a Chinese dash |
+| `·` | Inter | 280 | Middle dot |
+| `〖` `〗` | Noto | 940 | Still full-width; rarely used |
+| U+3000 | Noto | 940 | Do not use for indentation |
 
-表中 advance 为 Regular；Bold 的引号、省略号、间隔号略宽。
+The advance column is Regular; SemiBold quotes, ellipsis, and middle dot are slightly wider.
 
-写法约定：
+Writing conventions:
 
-- 中文省略号写两个 `……`（U+2026 ×2），不写 `...`，也不写 `。。。`。
-- 中文破折号写两个 `——`（U+2014 ×2），不写 `--`，也不写单个 `—`。
-- 间隔号用 `·`（U+00B7），不用 `•` 或 `.`。
-- 引号外层 `“”`、内层 `‘’`；书名号外层 `《》`、内层 `〈〉`。
-- 中文引号在 Dab Sans 里是 Inter 的窄引号，不要为了“补宽”在引号内侧加空格；内侧永远紧贴内容。
-- 不要用全角空格 U+3000 做缩进或对齐，用 CSS `text-indent` / `margin` / `padding`。
+- Write the Chinese ellipsis as two `……` (U+2026 ×2), not `...` and not `。。。`.
+- Write the Chinese dash as two `——` (U+2014 ×2), not `--` and not a single `—`.
+- Use `·` (U+00B7) for the middle dot, not `•` or `.`.
+- Outer quotes are `“”` and inner quotes `‘’`; outer title marks are `《》` and inner title marks `〈〉`.
+- Chinese quotes in Dab Sans are Inter's narrow quotes. Do not add spaces inside them to “restore width”; the inside always hugs the content.
+- Do not use the ideographic space U+3000 for indentation or alignment. Use CSS `text-indent` / `margin` / `padding`.
 
-### 3.5 换行与行首行尾
+### 3.5 Line breaking and line edges
 
-- 行首不放 `。` `，` `、` `；` `：` `！` `？` `）` `］` `｝` `〉` `》` `」` `』` `】` `〕` `〗` `”` `’`。浏览器的默认避头尾规则会处理，不要用 `word-break: break-all` 把它破坏掉；也不要用 `keep-all`，那会让中文长句无法在汉字之间断行。
-- 标点后的空格在行尾会自动折叠，不需要手工删除；也不要在行尾留两个空格——Markdown 里两个行尾空格会变成硬换行。
-- 一个空格就够，不要连写两个。HTML 会折叠连续空格，但源文件里应该只有一个。
-- 不要用 `&nbsp;` 代替普通空格。只有在“这个短标签不能断行”这种局部场景才用。
-- 不要用 `&thinsp;`、U+2009、U+200A 等窄空格替代 U+0020；宽度不统一，跨字体就乱。
+- A line never starts with `。` `，` `、` `；` `：` `！` `？` `）` `］` `｝` `〉` `》` `」` `』` `】` `〕` `〗` `”` `’`. The browser's default line-breaking rules handle this; do not break them with `word-break: break-all`, and do not use `keep-all`, which prevents Chinese sentences from breaking between Han characters.
+- The space after a mark collapses at the end of a line; do not delete it by hand, and do not leave two trailing spaces — two trailing spaces in Markdown become a hard break.
+- One space is enough; never type two. HTML collapses consecutive spaces, but the source should contain one.
+- Do not use `&nbsp;` in place of an ordinary space. Use it only for a local case such as a short label that must not break.
+- Do not substitute `&thinsp;`, U+2009, U+200A, or other narrow spaces for U+0020. The widths vary and break across fonts.
 
-## 4. 中英混排
+## 4. CJK–Latin mixing
 
-Dab Sans 没有中英边界的字距：`kern` 只覆盖拉丁字形，汉字、中文标点都不在 kerning 覆盖里。所以中英之间**必须用真实空格分隔**，不能指望字体自动收紧或撑开。
+Dab Sans has no CJK–Latin tracking: `kern` covers Latin glyphs only, and neither Han nor Chinese punctuation is in its coverage. A real space is therefore **required** between Chinese and Latin; the font will not open or close the gap by itself.
 
-- 汉字与拉丁字母、数字之间，各留一个空格：`使用 Dab Sans 渲染 3,755 个汉字。`
-- 汉字与汉字之间不加空格：写 `中文字体`，不写 `中 文 字 体`。
-- 英文片段用英文标点和英文空格，中文片段用中文标点：`Dab Sans 有两个字重。 It ships in 400 and 600. 中文继续。`
-- 中文引号里包英文句子时，句子内部仍用英文标点：`他说：“It works.” 然后走了。`
-- 数字、版本号、日期、百分比、URL 内部用 ASCII 标点：`3,755`、`8,915`、`12.8%`、`v3.2.1`、`2026-11-11`。
-- 数字与单位之间按英文习惯空一格：`10 GB`、`24 px`；百分号紧贴数字：`12.8%`。
-- 代码、命令行、路径、URL 用等宽字体，不参与中文标点规则：`/fonts/DabSans-Regular.woff2`。
-- 英文单词不要被拆行：`word-break: normal`；只有超长 URL 才用 `overflow-wrap: anywhere`。
-- 不要用 `text-autospace` 自动加空。各浏览器支持不一致，还可能和手打空格叠加；手打空格是唯一来源。
+- Put one space between Han and Latin letters or digits: `使用 Dab Sans 渲染 3,755 个汉字。`
+- Put no space between Han characters: write `中文字体`, not `中 文 字 体`.
+- Use English punctuation and English spacing inside English runs, and Chinese punctuation inside Chinese runs: `Dab Sans 有两个字重。 It ships in 400 and 600. 中文继续。`
+- When a Chinese quote contains an English sentence, keep English punctuation inside the sentence: `他说：“It works.” 然后走了。`
+- Use ASCII punctuation inside numbers, version numbers, dates, percentages, and URLs: `3,755`, `8,915`, `12.8%`, `v3.2.1`, `2026-01-31`.
+- Follow English convention for a number and its unit: `10 GB`, `24 px`; the percent sign hugs the number: `12.8%`.
+- Set code, command lines, paths, and URLs in the monospace family; they do not follow the Chinese punctuation rules: `/fonts/DabSans-Regular.woff2`.
+- Do not break English words: `word-break: normal`; use `overflow-wrap: anywhere` only for an overlong URL.
+- Do not use `text-autospace` to insert space automatically. Browser support differs and it can add to a typed space; the typed space is the only source.
 
-等宽用独立的 `Dab Mono`（Geist Mono）：
+The monospace family is the separate `Dab Mono` (Geist Mono) declared in §2.1:
 
 ```css
-@font-face {
-  font-family: "Dab Mono";
-  src: local("☺"), url("/fonts/DabMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 code, pre, kbd, samp {
   font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 ```
 
-`Dab Mono` 的拉丁部分同样上移了 0.0115em，行内 `code` 的基线不会比正文汉字低。
-它只用于等宽场景，正文、标题不要用。
+The Latin side of `Dab Mono` is also raised by 0.0115em, so inline `code` does not sit lower than the surrounding Han. Use it for monospace runs only; never for body text or headings.
 
-一段完整的混排示例：
+A complete mixed-script example:
 
 ```
 使用 Dab Sans 渲染 3,755 个汉字。
@@ -281,166 +290,152 @@ Dab Sans 有两个字重。 It ships in 400 and 600. 中文继续。
 3,755 个汉字、 8,915 个码位、 12.8%、 10 GB
 ```
 
-## 5. 版式参数
+## 5. Vertical rhythm
 
-### 5.1 字号与行高
+### 5.1 Line height
 
-| 用途 | font-size | line-height |
-|---|---|---|
-| 正文 | 16–18px | 1.75–1.85 |
-| 长文阅读 | 17–18px | 1.8 |
-| 注释 / 图注 | 13–14px | 1.7–1.75 |
-| H1 | 28–32px | 1.25–1.35 |
-| H2 | 22–24px | 1.3–1.4 |
-| H3 | 18–20px | 1.4 |
+Two things are mandatory:
 
-这些是推荐值，不是字体的硬限制，但有两件事必须做：
+- **Set `line-height` explicitly.** The font's `line-height: normal` is about 1.45 (hhea 1160 / −288), and some engines may use OS/2 typo metrics and produce about 1.0. Both are too tight for Chinese body text.
+- **Never go below 1.6.** Chinese has no word spaces, so tight leading turns a paragraph into a solid block. Dab Sans also scales Han to 0.94, making the glyphs smaller; the leading needs to be relatively looser, not tighter.
+- **Do not compensate for the 0.94 scale with tracking or by scaling Han alone.** At the same font size Han sets about 6% smaller than in a conventional CJK font. If a legacy layout must match PingFang's Han size exactly, divide the font size by 0.94 and accept that Latin grows with it.
 
-- **显式设置 `line-height`。** 字体的 `line-height: normal` 大约是 1.45（hhea 1160 / −288），不同引擎还可能取 OS/2 typo 的 1.0；对中文正文都偏紧。
-- **不要低于 1.6。** 中文没有词间空格，行距太紧会糊成一片；Dab Sans 的汉字还缩到了 0.94，字面更小，行距需要相对更松一点。
+For body text, use 1.75–1.85. Exact font sizes, exact line-height values, measure, first-line indent, and alignment strategy belong to the consuming design system. For the DabAZ site those are DabDesign's `core.md` §4.2 (type scale) and §7 (layout): <https://github.com/dabaz-official/DabDesign/blob/main/core.md>. This repository does not define them.
 
-### 5.2 行宽与缩进
+### 5.2 Weights and emphasis
 
-- 正文 `max-width: 34–38em`，约 36–40 个汉字。1 个汉字 = 0.94em，所以 38em 大约放 40 字。
-- 段落首行缩进用 `text-indent: 1.88em`，正好两个汉字；写 `2em` 也接近（2.13 个汉字），可以接受。
-- 列表项、图注、表格单元格不缩进。
-- 段落之间用 `margin`，不要用 `<br>` 或空段落撑开。
-- 汉字被缩到 0.94，同字号下比常规中文字体小约 6%。不要用 `letter-spacing` 或单独放大汉字来补偿；需要和旧稿的 PingFang 字面严格对齐时，整体字号 ÷ 0.94（16px → 17px），并接受拉丁同步变大。
+There are only two real weights, 400 and 600. Which role uses which weight belongs to the consuming design system.
 
-### 5.3 字重与强调
+- Do not use 300, 500, 700, or intermediate values such as 450. CSS resolves 500 to 400 and 700 to 600; the font has no variable axis, so intermediate values do not interpolate. “It looks like it worked” only means the browser rounded to the nearest weight.
+- Do not use italic. The font has no italic and the browser will synthesize an oblique; Han glyphs deform. - Do not use `font-variant: small-caps`. There are no small capitals and the browser will synthesize them.
 
-只有 400 和 600 两个真实字重。
-
-- 正文 400，标题和强调 600。
-- 不要用 300、500、700，也不要写 450 之类的中间值。CSS 的匹配结果是：500 → 400，700 → 600；字体没有可变轴，中间值不会插值。“看起来生效”只是就近取整。
-- 不要用斜体。字体没有斜体，浏览器会合成倾斜，汉字会变形。强调用 600、颜色或底色。
-- 不要用 `font-variant: small-caps`。没有小型大写，浏览器会合成。
-
-`<em>` 默认是斜体，需要覆盖：
+`<em>` and `<i>` are italic by default and must be reset. The replacement emphasis style (weight or color) is the design system's decision:
 
 ```css
 em, i {
   font-style: normal;
 }
-
-em {
-  font-weight: 600;
-}
 ```
 
-### 5.4 对齐与字距
+### 5.3 Alignment, tracking, and features
 
-- 正文默认 `text-align: start`（左对齐）。两端对齐会把标点后的空格一起拉开，含标点多的行容易出现不均匀的缝；如果必须用 `justify`，逐行检查。
-- 正文 `letter-spacing: 0`。标题可以用到 `0.02em`，但不要再大；`letter-spacing` 会同时作用于标点和空格，等于在破坏刚校准好的半角节奏。
-- `word-spacing: normal`。不要用它替代手动空格。
-- 保留默认 `font-kerning`；拉丁字距是 Inter 的一部分，不要关掉。
-- 不要对西文 `<span>` 单独做 `transform: translateY`、`scale`、`font-size` 调整。字体已经内置了拉丁上移 0.0115em 和汉字 0.94 的缩放，再动一次就会破坏基线对齐。
-- `font-feature-settings` 保持默认。表格数字用 `font-variant-numeric: tabular-nums`；需要区分 0 和 O 时可以用 `slashed-zero`。
-- `font-optical-sizing` 不会有任何效果：Inter 在构建时已经固定为 `opsz=16`，产物没有可变轴。
+- Justified text stretches the spaces after punctuation along with everything else, which produces uneven gaps on lines with many marks. If the design system calls for `justify`, check each line.
+- Body text uses `letter-spacing: 0`. If tracking is used at all, keep it at or below `0.02em`; `letter-spacing` also acts on punctuation and spaces and therefore erodes the calibrated half-width rhythm.
+- Keep `word-spacing: normal`. Do not use it as a substitute for typed spaces.
+- Keep the default `font-kerning`; Latin spacing is part of Inter and must not be disabled.
+- Do not apply `transform: translateY`, `scale`, or a separate `font-size` to Latin `<span>` elements. The font already carries the 0.0115em Latin lift and the 0.94 Han scale; a second adjustment breaks baseline alignment.
+- Keep `font-feature-settings` at its default. Use `font-variant-numeric: tabular-nums` for tabular figures, and `slashed-zero` when 0 and O must differ.
+- `font-optical-sizing` has no effect: Inter was fixed at `opsz=16` in the build and the output has no variable axis.
 
-## 6. CSS 禁用清单
+## 6. CSS prohibition list
 
-| 不要写 | 原因 | 替代 |
+| Do not write | Reason | Instead |
 |---|---|---|
-| `font-feature-settings: "palt" 1` | 特性已从字体删除；fallback 字体可能响应，宽度不一致 | 不需要，标点已是半角 |
-| `font-feature-settings: "halt" 1` | 同上 | 同上 |
-| `font-feature-settings: "hwid" 1` | 同上 | 同上 |
-| `font-feature-settings: "fwid" 1` | 会把部分 ASCII 标点切回全角宽度 | 保持默认 |
-| `font-feature-settings: "pwid" 1` | 会切换比例宽度，破坏 470 的节奏 | 保持默认 |
-| `font-variant-east-asian: full-width` | 同上 | 保持默认 |
-| `font-variant-east-asian: proportional-width` | 同上 | 保持默认 |
-| `text-spacing-trim` / `text-autospace` | 支持不一致，和手打空格叠加不可控 | 手打一个 U+0020 |
-| 正文 `letter-spacing` | 会把标点和空格一起拉开 | `0`；标题最多 `0.02em` |
-| `word-spacing` 改动 | 会改变已校准的空格宽度 | `normal` |
-| `font-style: italic` | 无斜体，浏览器合成倾斜 | 600 或颜色 |
-| `font-weight: 300 / 500 / 700` | 无对应字重，500 → 400，700 → 600 | 400 / 600 |
-| `font-variant: small-caps` | 无小型大写，合成效果差 | 全大写或 600 |
-| `font-stretch` | 没有宽度轴 | 正常 |
-| `writing-mode: vertical-rl` | 没有 `vhea` / `vmtx`，竖排度量不存在 | 横排 |
-| 西文内联 `transform` / `scale` | 字体已内置对齐，二次变换会错位 | 不动 |
-| 正文 `white-space: pre` | 保留行首空格，破坏空格折叠和避头尾 | `normal` |
+| `font-feature-settings: "palt" 1` | The feature was removed from the font; fallback fonts may respond and widths diverge | Nothing; punctuation is already half-width |
+| `font-feature-settings: "halt" 1` | Same | Same |
+| `font-feature-settings: "hwid" 1` | Same | Same |
+| `font-feature-settings: "fwid" 1` | Switches some ASCII punctuation back to full-width | Keep the default |
+| `font-feature-settings: "pwid" 1` | Switches to proportional widths and breaks the 470 rhythm | Keep the default |
+| `font-variant-east-asian: full-width` | Same | Keep the default |
+| `font-variant-east-asian: proportional-width` | Same | Keep the default |
+| `text-spacing-trim` / `text-autospace` | Inconsistent support; uncontrolled stacking with typed spaces | Type one U+0020 |
+| Body `letter-spacing` | Stretches punctuation and spaces together | `0`; any tracking at most `0.02em` |
+| Changed `word-spacing` | Changes the calibrated space width | `normal` |
+| `font-style: italic` | No italic; the browser synthesizes an oblique | 600 or color |
+| `font-weight: 300 / 500 / 700` | No such weights; 500 → 400, 700 → 600 | 400 / 600 |
+| `font-variant: small-caps` | No small capitals; synthesis looks wrong | Uppercase or 600 |
+| `font-stretch` | No width axis | Normal |
+| `writing-mode: vertical-rl` | No `vhea` / `vmtx`; vertical metrics do not exist | Horizontal writing |
+| Inline `transform` / `scale` on Latin | The font already contains the alignment; a second transform misaligns it | Leave it alone |
+| Body `white-space: pre` | Preserves leading spaces and breaks space collapsing and line breaking | `normal` |
 
-## 7. HTML / Markdown 源码写法
+## 7. HTML / Markdown source rules
 
-HTML 会把换行和缩进折叠成一个空格。这个行为对 Dab Sans 来说既是工具也是陷阱：放在标点后面，它正好就是你要的那个空格；放在两个汉字之间，它就是一个不该出现的空格。
+HTML collapses newlines and indentation into one space. For Dab Sans this is both a tool and a trap: after a punctuation mark it is exactly the space you want; between two Han characters it is a space that should not exist. Every rule below follows from the font itself, not from a separate content style:
 
-- 标点后的空格要是真实的文本节点。把标点和下一句拆进两个相邻的内联标签时，空格必须留在标签之间：
+- The space after a mark must be a real text node. When a mark and the next sentence sit in adjacent inline elements, keep the space between the tags:
 
 ```html
 <p>先做字体。 <span class="accent">再做页面。</span></p>
 ```
 
-- 不要把空格塞进标签里面，也不要依赖 `display: block` 的子元素来产生间隔。
-- 中文段落用 `<p>`，不要用 `<br>` 造段距。
-- 标点写在正文里，不要用 CSS `::before` / `::after` 生成句读标点；生成内容的空格和换行不可控。
-- 给页面设 `lang="zh-CN"`；英文片段加 `lang="en"`。字体已经删除了 `locl`，在 `zh-CN` 下拉丁仍然是 Inter，不会变回 Noto。
-- Markdown 里两个行尾空格是硬换行，标点后不要留多余的尾随空格。
-- 正文 `white-space: normal`；`pre` 只留给代码块。
+  The font's 470 advance plus a real U+0020 is the calibrated pair; the space inside the opening tag is not emitted, and an inline element does not create it.
+- Do not put the space inside a tag, and do not rely on a `display: block` child to produce the gap. The browser's rendered space is what the half-width metrics were matched to.
+- Use `<p>` for Chinese paragraphs, not `<br>` to create paragraph spacing. The font's leading is carried by `line-height`; a forced break bypasses it.
+- Write punctuation in the text, not with CSS `::before` / `::after`. Generated content cannot reliably supply the following U+0020, and whitespace at the edges of generated content is not preserved consistently.
+- Set `lang="zh-CN"` on the page and `lang="en"` on English runs. The build deleted `locl`, so no `lang` attribute can switch shared codepoints to Noto's language-specific forms; Latin stays Inter's (`A` 686 units).
+- In Markdown, two trailing spaces are a hard break. The space after punctuation must be one interior U+0020, never a trailing space.
+- Set body `white-space: normal`; reserve `pre` for code blocks. Preserved whitespace defeats the collapsing that the punctuation spacing relies on.
 
-## 8. 生僻字与回落
+## 8. Rare characters and fallback
 
-Dab Sans 只保留 GB2312 一级 3,755 个汉字。`囧`、`屌`、`垚`、`犇`、`淼`、`龘`、`𠮷` 都不在字体里，会回落到字体栈后面的系统字体。
+Dab Sans keeps only the 3,755 GB2312 level-1 Han characters. `囧`, `屌`, `垚`, `犇`, `淼`, `龘`, and `𠮷` are not in the font and fall back to the system font later in the stack.
 
-回落带来的问题不是“缺字”，而是“不一样”：
+The problem with fallback is not “a missing character” but “a different one”:
 
-- 系统 CJK 字体的汉字 advance 是 1000，Dab Sans 是 940；同一个字号下，生僻字看起来会大约大 6%，而且笔画粗细、字面重心都可能不同。
-- 人名、地名、品牌名、古文引用是重灾区。页面里出现这类内容时，逐个看一遍。
-- 日文假名在字体里，但汉字覆盖只有 GB2312 一级，不建议用 Dab Sans 排日文。
-- 韩文、阿拉伯文、天城文、泰文、Emoji 都回落系统字体；字体栈里必须有一套完整的系统 CJK 字体兜底。
-- 如果页面主要由生僻字构成，不要用 Dab Sans，或者单独扩展子集；这已经超出本规范的范围。
+- A system CJK font has a Han advance of 1000, Dab Sans has 940; at the same font size the rare character looks about 6% larger, and stroke weight and optical centre may differ.
+- Personal names, place names, brand names, and classical quotations are the danger zones. Check every occurrence on a page.
+- Japanese kana are in the font, but Han coverage is GB2312 level 1 only; do not set Japanese with Dab Sans.
+- Korean, Arabic, Devanagari, Thai, and emoji fall back to system fonts; the stack must contain a complete system CJK fallback.
+- If a page is mostly rare characters, do not use Dab Sans, or extend the subset; that is outside this specification.
 
-## 9. 发布前检查
+## 9. Pre-release checklist
 
-- [ ] 中文标点全部使用中文码位，没有用 ASCII `. , ; : ! ?` 代替
-- [ ] 每个句读标点或闭符号后接正文时，有且仅有一个 U+0020
-- [ ] 标点前没有空格
-- [ ] 相邻标点之间没有空格（`。”`、`》，`、`）！`）
-- [ ] 开引号、开括号、开书名号内侧没有空格
-- [ ] 闭引号、闭括号、闭书名号后接正文时有一个空格
-- [ ] 破折号写成 `——`，省略号写成 `……`
-- [ ] 汉字与拉丁字母、数字之间有空格；汉字之间没有空格
-- [ ] 没有用 U+3000 代替普通空格；`&nbsp;` 只出现在不允许断行的短标签里
-- [ ] 只用了 400 / 600；没有斜体、合成字重、合成小型大写
-- [ ] 正文 `line-height` ≥ 1.6，行宽 ≤ 38em
-- [ ] 没有启用 `palt` / `halt` / `hwid` / `fwid` / `pwid`
-- [ ] 代码块、URL、路径使用等宽字体
-- [ ] 抽查了人名、地名、生僻字的回落效果
-- [ ] 页面有 `lang="zh-CN"`，英文片段有 `lang="en"`
+- [ ] All Chinese punctuation uses Chinese codepoints; no ASCII `. , ; : ! ?` substitutes
+- [ ] Every sentence mark or closing mark followed by text has exactly one U+0020
+- [ ] No space before a mark
+- [ ] No space between adjacent marks (`。”`, `》，`, `）！`)
+- [ ] No space inside an opening quote, bracket, or title mark
+- [ ] A closing quote, bracket, or title mark followed by text has one space
+- [ ] Dashes are `——` and ellipses are `……`
+- [ ] Han and Latin letters or digits are separated by a space; Han characters are not
+- [ ] U+3000 is not used in place of a normal space; `&nbsp;` appears only in short labels that must not break
+- [ ] Only 400 / 600 are used; no italic, synthesized weight, or synthesized small caps
+- [ ] Body `line-height` is at least 1.6
+- [ ] `palt` / `halt` / `hwid` / `fwid` / `pwid` are not enabled
+- [ ] Code blocks, URLs, and paths use the monospace family
+- [ ] Personal names, place names, and rare characters were checked for fallback
+- [ ] The page has `lang="zh-CN"` and English runs have `lang="en"`
 
-## 10. 技术参数
+Overall acceptance criteria: DabAgents rule 04, `rules/04-quality.md`.
 
-| 项 | 值 |
+## 10. Technical parameters
+
+| Item | Value |
 |---|---|
-| 字族名 | Dab Sans |
-| 字重 | Regular 400 / SemiBold 600 |
+| Family | Dab Sans |
+| Weights | Regular 400 / SemiBold 600 |
 | UPM | 1000 |
-| 码位 / 字形 | 8,915 / 9,312 |
-| 汉字 | GB2312 一级 3,755 字，advance 940 |
-| 半角化中文标点 | 28 个，advance 470（500 × 0.94） |
-| 拉丁 | Inter 4.001，`opsz=16`，上移 0.0115em |
-| 汉字缩放 | 0.94，光学中心保持 |
-| 空格 | 278（Regular）/ 234（Bold） |
-| 垂直度量 | typo 880 / −120 / 0；hhea & win 1160 / −288 |
-| 默认行高 | `normal` ≈ 1.45（不要依赖） |
-| 竖排 | 无 `vhea` / `vmtx` |
-| 斜体 / 可变轴 / 小型大写 | 无 |
-| 文件 | 正文每字重：TTF 约 1.9 MB；woff2 约 801 / 817 KB。等宽每字重：TTF 约 100 KB；woff2 约 35 KB |
-| 许可 | SIL Open Font License 1.1 |
+| Codepoints / glyphs | 8,915 / 9,312 |
+| Han | 3,755 GB2312 level-1 characters, advance 940 |
+| Half-width Chinese punctuation | 28 marks, advance 470 (500 × 0.94) |
+| Latin | Inter 4.001, `opsz=16`, raised 0.0115em |
+| Han scale | 0.94, optical centre preserved |
+| Space | 278 (Regular) / 249 (SemiBold) |
+| Vertical metrics | typo 880 / −120 / 0; hhea and win 1160 / −288 |
+| Default line height | `normal` ≈ 1.45 (do not rely on it) |
+| Vertical writing | No `vhea` / `vmtx` |
+| Italic / variable axes / small caps | None |
+| Files | Sans per weight: TTF 1,947,184 B (Regular) / 1,946,904 B (SemiBold); woff2 821,000 B / 835,452 B (801.8 / 815.9 KiB). Mono per weight: TTF 102,552 B / 102,524 B; woff2 35,464 B / 36,720 B (34.6 / 35.9 KiB) |
+| License | SIL Open Font License 1.1 |
 
-OpenType 特性：
+OpenType features:
 
-- 默认保留：`kern`（仅拉丁）、`liga`、`calt`、`ccmp`、`mark`、`mkmk`。
-- 可用：`tnum`、`pnum`、`zero`、`sups`、`subs`、`case`。
-- 已删除：`locl`、`halt`、`palt`、`hwid`。
-- 不要启用：`fwid`、`pwid`。
+- Retained by default: `kern` (Latin only), `liga`, `calt`, `ccmp`, `mark`, `mkmk`.
+- Available: `tnum`, `pnum`, `zero`, `sups`, `subs`, `case`.
+- Removed: `locl`, `halt`, `palt`, `hwid`.
+- Do not enable: `fwid`, `pwid`.
 
-## 11. 许可
+## 11. License
 
-Dab Sans 以 SIL Open Font License 1.1 发布。可以嵌入网页和 PDF，可以随项目分发；不得单独售卖字体文件，衍生字体同样以 OFL 发布。版权声明保留在字体 `name` 表中。
+Dab Sans and Dab Mono are released under the SIL Open Font License 1.1. They may be embedded in web pages and PDFs and redistributed with a project; the font files may not be sold on their own, and derivatives must also be released under the OFL. Copyright notices are preserved in the font's `name` table.
 
-- Inter：© The Inter Project Authors，OFL 1.1
-- Noto Sans SC：© 2014–2021 Adobe，OFL 1.1，保留字体名 `Source`
+- Inter: © The Inter Project Authors, OFL 1.1
+- Noto Sans SC: © 2014–2021 Adobe, OFL 1.1, with Reserved Font Name `Source`
+- Geist Mono: © 2024 The Geist Project Authors, OFL 1.1
+
+The font `name` table says “personal, non-commercial use”. That records the maintainer's intent and is not an additional term of the OFL; OFL 1.1 itself permits commercial use.
 
 ---
 
-本文数值对应 2026-11-11 的构建。改动 `CJK_SCALE`、`LATIN_DY` 或 `HALFWIDTH_PUNCT` 后，§3、§5、§10 里的数值需要重新核对。
+This document describes v1.0.0. All sizes and metrics were measured against the files in `dist/`. After changing `CJK_SCALE`, `LATIN_DY`, or `HALFWIDTH_PUNCT`, re-measure §3 and §10.
