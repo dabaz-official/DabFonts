@@ -1,175 +1,150 @@
 # DabFonts
 
-**字族名：`Dab Sans`（正文）/ `Dab Mono`（等宽）。** 本仓库沿用项目名 DabFonts。
+**Families:** `Dab Sans` (text) / `Dab Mono` (monospace). **Version:** 1.0.0. The repository keeps the project name DabFonts.
 
-个人项目用的中英混排字体：**Inter 4.001** 的拉丁部分 + **Noto Sans SC 2.004** 的中文部分，合并成单一字族。
+A mixed Chinese–English typeface for personal projects: the Latin side of **Inter 4.001** plus the Han side of **Noto Sans SC 2.004**, merged into one family.
 
-- 汉字只保留 **GB2312 一级 3,755 个常用字**
-- 中文标点烘焙成 Noto 自带的**半角**度量（烘焙时 500，随汉字缩到 0.94 后 advance 470）
-- 中文字面整体缩到 **0.94**，以对齐 Apple 官网的中西文比例
-- 拉丁上移 **0.0115 em**，与汉字光学中心重合
+- Han is limited to the **3,755 GB2312 level-1 characters**
+- 28 Chinese punctuation marks are baked to Noto's **half-width** metrics (500 at bake time, advance 470 after the 0.94 scale)
+- The CJK side is scaled to **0.94** to match the Latin/CJK proportion used on Apple's site
+- Latin is raised **0.0115 em** to share the optical centre with Han
 
-成果：9,312 字形 / 8,915 码位，TTF 1.9 MB，woff2 802 KB。
+Result: 9,312 glyphs / 8,915 codepoints; TTF 1,947,184 B; woff2 821,000 B (801.8 KiB), Regular.
 
-## 用法
+## Usage
 
-排版与使用规范（中文标点空格、中英混排、字重与行高）见 [TYPESETTING.md](TYPESETTING.md)。
-
-### 网页
+Typography and loading rules live in [GUIDELINE.md](GUIDELINE.md); the normative reference is [TYPESETTING.md](TYPESETTING.md). TYPESETTING §2.1 is the canonical `@font-face` block; `GUIDELINE.md` carries a verbatim copy, and this README does not repeat it. The repository contract (pinned DabAgents commit, commands, Definition of Done, exceptions) is in [AGENTS.md](AGENTS.md). The one stack to use:
 
 ```css
-@font-face {
-  font-family: "Dab Sans";
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/DabSans-Regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Dab Sans";
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/DabSans-SemiBold.woff2") format("woff2");
-}
-
 body {
-  font-family: "Dab Sans", -apple-system, BlinkMacSystemFont,
-               "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Dab Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
 }
 
-/* 等宽：独立字族，只在 code / pre 用 */
 code, pre, kbd, samp {
   font-family: "Dab Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 ```
 
-- 只有 400 / 600 两个字重；中间字重会就近取用（500 → 400，700 → 600），不要依赖合成
-- **不要**再开 `font-feature-settings: "palt"`，标点已经是半角
-- 3,755 字之外的汉字会自动回落到后面的系统字体，这是设计行为
-- 等宽用独立的 `Dab Mono`（Geist Mono），不参与合并
+- Only 400 / 600; 500 resolves to 400 and 700 to 600. Do not rely on synthesis.
+- Do **not** enable `font-feature-settings: "palt"`; the punctuation is already half-width.
+- Han outside the 3,755 falls back to the system stack; that is designed behavior.
+- Monospace is the separate `Dab Mono` family (Geist Mono) and does not participate in the merge.
 
-### 桌面
+Desktop: install `dist/DabSans-Regular.ttf` and `dist/DabSans-SemiBold.ttf`; the family name is `Dab Sans`. Install `dist/DabMono-*.ttf` for monospace.
 
-安装 `dist/DabSans-Regular.ttf` 与 `dist/DabSans-SemiBold.ttf` 即可，族名 `Dab Sans`。等宽另装 `dist/DabMono-*.ttf`。
+## Repository layout
 
-## 目录
+| Path | Contents |
+|---|---|
+| `sources/` | `Inter-VF.ttf`, `NotoSansSC-VF.ttf`, `GeistMono-VF.ttf`, and `OFL-Inter.txt`, `OFL-NotoSansSC.txt`, `OFL-GeistMono.txt` |
+| `scripts/` | `build_dabfonts.py` (main build), `build_web_assets.py` (page subsets), `serve.py` |
+| `dist/` | `DabSans-{Regular,SemiBold}.{ttf,woff2}` (text), `DabMono-{Regular,SemiBold}.{ttf,woff2}` (monospace), `OFL.txt` |
+| `history/` | Snapshots from before a glyph-metric change, for comparison and rollback |
+| `demo/` | `index.html` (three-way comparison), `punct.html`, `scale.html`, `align.html` |
+| `build/` | Intermediates, safe to delete |
 
-```
-sources/     Inter / Noto Sans SC 可变字体原件 + OFL 许可
-scripts/     build_dabfonts.py（主构建）/ build_web_assets.py（页面子集）/ serve.py
-dist/        DabSans-{Regular,SemiBold}.{ttf,woff2}（正文）
-             DabMono-{Regular,SemiBold}.{ttf,woff2}（等宽）
-history/     改动前的快照，供对照与回退
-demo/        index.html（三方案对照）/ punct.html（标点）/ scale.html（缩放）/ align.html（垂直对齐）
-build/       中间产物，可删
-```
-
-## 映射规则
-
-| 码位 | 来源 | 备注 |
-|---|---|---|
-| 拉丁字母、数字、英文标点 | Inter | 含希腊文、西里尔文、越南文 |
-| 汉字 | Noto Sans SC | GB2312 一级 3,755 字，advance 940 |
-| 中文标点（28 个） | Noto Sans SC | `hwid` + `halt` 烘死，advance 470 |
-| `“ ” ‘ ’` `…` `—` `·` | **Inter** | 共用码位，按"英文标点用 Inter"处理 |
-| `〖〗` | Noto Sans SC | 保持全角 940 |
-| 其他全角形式 | Noto Sans SC | |
-| 等宽场景（`code` / `pre` / 路径 / 版本号） | **Geist Mono**（家族名 `Dab Mono`） | 独立字族，不参与合并 |
-| 韩文 / 阿拉伯文 / 天城文 / 泰文 / 扩展 B | — | 回落到系统字体 |
-
-## 构建
+## Build
 
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 
-make build   # 生成 dist/
-make web     # 生成 demo/fonts/ 与 demo/dabfonts-demo.html
+make build   # writes dist/
+make web     # writes demo/fonts/ and demo/dabfonts-demo.html
 make serve   # http://127.0.0.1:8099/index.html
 ```
 
-`build_dabfonts.py` 的流程：
+Run `make build` before `make web`. `demo/fonts/` and `demo/dabfonts-demo.html` are generated and gitignored, so a fresh clone has no demo fonts until both commands run.
 
-1. `varLib.instancer` 把两个可变字体实例化到指定字重（Inter 固定 `opsz=16`）
-2. Inter 的 UPM 从 2048 缩放到 1000，再上移 `LATIN_DY`
-3. Noto 侧烘焙半角标点，再整体缩放 `CJK_SCALE` 并抬回光学中心
-4. 统一 `post` 表格式（Inter format 2 / Noto format 3，合并器无法协调）
-5. 删除 Noto 独有的 `vhea`/`vmtx`/`BASE`
-6. `Merger().merge([inter, noto])`，Inter 在前 = 拉丁优先
-7. 一次 subsetter：裁到 GB2312 一级 + 删除 `locl`/`halt`/`palt`/`hwid`
-8. 重写 name 表，竖排度量沿用 Noto，输出 TTF + woff2
+`build_dabfonts.py` runs these steps:
 
-## 设计决策
+1. `varLib.instancer` instances both variable fonts at the target weight (Inter is fixed at `opsz=16`)
+2. Inter's UPM is scaled from 2048 to 1000, then raised by `LATIN_DY`
+3. Noto's punctuation is baked to half-width, then the CJK side is scaled by `CJK_SCALE` and lifted back to its optical centre
+4. The `post` table format is normalized (Inter is format 2, Noto format 3; the merger cannot reconcile them)
+5. Noto-only `vhea` / `vmtx` / `BASE` tables are deleted
+6. `Merger().merge([inter, noto])` merges with Inter first, so Latin wins ties
+7. One subsetter pass keeps GB2312 level 1 and deletes `locl` / `halt` / `palt` / `hwid`
+8. The `name` table is rewritten; Noto's horizontal-writing metrics (OS/2 typo and hhea/win) are kept so CJK line height stays sane; the vertical tables remain deleted; TTF and woff2 are written
 
-### 半角标点
+## Design notes
 
-28 个中文标点从全角 1000 改成半角，没有自制造型，用的是 Noto 自带的两套数据：
+### Codepoint mapping
 
-| 机制 | 数量 | 例子 |
+| Codepoint | Source | Notes |
 |---|---|---|
-| `hwid`（GSUB 半角变体） | 10 | （ ） ［］ ｛｝ ， ． ／ ～ |
-| `halt`（GPOS 半角度量） | 18 | 。 、 〈〉《》【】〔〕「」『』 ！ ： ； ？ |
+| Latin letters, digits, Latin punctuation | Inter | Includes Greek, Cyrillic, and Vietnamese |
+| Han | Noto Sans SC | 3,755 GB2312 level-1 characters, advance 940 |
+| Chinese punctuation (28 marks) | Noto Sans SC | `hwid` + `halt` baked in, advance 470 |
+| `“ ” ‘ ’` `…` `—` `·` | **Inter** | Shared codepoints, handled as “Latin punctuation uses Inter” |
+| `〖〗` | Noto Sans SC | Stays full-width at 940 |
+| Other full-width forms | Noto Sans SC | |
+| Monospace runs (`code` / `pre` / paths / versions) | **Geist Mono** (family `Dab Mono`) | Separate family, not merged |
+| Korean / Arabic / Devanagari / Thai / Extension B | — | Falls back to system fonts |
 
-`halt` 的 `XPlacement −500` 也一并烘进字形（开括号连带左移）。两套特性随后删除，
-浏览器即使再次启用 `halt` 也不会二次压缩。与参考项目（DabMusic）的产物逐字比对，
-24 个共有标点的墨迹 x 范围差值为 0；`「」『』` 是本项目额外加的。
+### Half-width punctuation
 
-### 中文字面缩放
+The 28 Chinese punctuation marks move from a full-width 1000 to a half-width advance. No shape was invented; the build uses Noto's own data:
 
-apple.com.cn 首页的 `SFProPingFangSC-Regular.woff2` 是把系统 PingFang 整体缩到 **0.886**
-再上移 **44/1000 em**（advance 887、墨迹 0.822、cap 762、引号 476 四项指标一致）。
-它换来的是 汉字墨迹 / 拉丁大写高 = **1.167**（未处理 1.317）。
+| Mechanism | Count | Examples |
+|---|---|---|
+| `hwid` (GSUB half-width variants) | 10 | （ ） ［］ ｛｝ ， ． ／ ～ |
+| `halt` (GPOS half-width metrics) | 18 | 。 、 〈〉《》【】〔〕「」『』 ！ ： ； ？ |
 
-本项目复制这个**比例**而非绝对系数——Noto 汉字墨迹比 PingFang 小，按比例反解得 **0.94**：
+`halt`'s `XPlacement −500` is baked into the glyph as well (an opening bracket moves left with it). Both features are then deleted, so a browser that enables `halt` again cannot compress the marks a second time. A glyph-by-glyph comparison with the reference project (DabMusic) found zero difference in the ink x-range for the 24 shared marks; `「」『』` are this project's addition.
 
-| | 缩放前 | 缩放后 | Apple |
+### CJK scale
+
+`SFProPingFangSC-Regular.woff2` on the apple.com.cn home page scales system PingFang to **0.886** and lifts it by **44/1000 em** (advance 887, ink 0.822, cap 762, quotes 476 all agree). It produces a Han ink / Latin cap height ratio of **1.167** (1.317 before treatment).
+
+This project copies the **ratio**, not the absolute factor: Noto's Han ink is smaller than PingFang's, so the proportional solve gives **0.94**:
+
+| | Before | After | Apple |
 |---|---|---|---|
-| 汉字 advance | 1000 | 940 | 887 |
-| 汉字墨迹 | 0.919 em | 0.864 em | 0.822 em |
-| 墨迹 / 大写高 | 1.242 | 1.168 | 1.167 |
+| Han advance | 1000 | 940 | 887 |
+| Han ink | 0.919 em | 0.864 em | 0.822 em |
+| Ink / cap height | 1.242 | 1.168 | 1.167 |
 
-缩放作用于轮廓、advance 和复合字形偏移；`OS/2` typo 度量不动，所以**行距不变、字变小**。
-随后按 `center × (1 − scale)` 上移 22/1000 em 把光学中心抬回原位。
+The scale applies to outlines, advances, and composite offsets; `OS/2` typo metrics are untouched, so **line spacing stays the same and the glyphs get smaller**. The CJK side is then lifted by `center × (1 − scale)` (22/1000 em) to put the optical centre back.
 
-### 垂直对齐
+### Vertical alignment
 
-| 对象 | 拉丁大写中心 | 汉字中心 | 残差 |
+| Pair | Latin cap centre | Han centre | Residual |
 |---|---|---|---|
-| 原始 Inter / Noto | 0.3640 | 0.3755 | 0.0115 |
+| Original Inter / Noto | 0.3640 | 0.3755 | 0.0115 |
 | Dab Sans | 0.3700 | 0.3751 | 0.005 |
-| Apple 官网 SF Pro / PingFang | 0.3530 | 0.3563 | 0.0033 |
+| Apple's SF Pro / PingFang | 0.3530 | 0.3563 | 0.0033 |
 
-`LATIN_DY` 是**成对**常数，换中文字体要重算：若改用 PingFang（汉字中心 0.3563），Inter 反而要下移。
+`LATIN_DY` is a **paired** constant; changing the Han font requires recomputing it. With PingFang (Han centre 0.3563), Inter would have to move down instead.
 
-### 必须知道的坑：`locl`
+### The `locl` trap
 
-Noto Sans SC 的 GSUB 带一个 `locl` 查找，包含 668 条拉丁字形替换。浏览器在 `lang=zh-CN`
-页面上会自动启用，把每个 Inter 字母换回 Noto 版本（`A` 字宽 686 → 608），合并等于白做。
-文件层面的 cmap / hmtx / glyf 全都正常，只有渲染出来量宽度才能发现。构建第 7 步整体剥离。
+Noto Sans SC's GSUB carries `locl` lookups for language-specific forms. In the 2.004 source used here they hold 28 single substitutions — digits, quotation marks, dashes, and the ellipsis — none of which are Latin letters. The build strips `locl` along with the baked `halt` / `palt` / `hwid` features in the same subsetter pass, so the output cannot change with the page's `lang` attribute. Latin keeps Inter's glyphs and metrics (`A` advance 686 units). The file-level cmap / hmtx / glyf tables look correct either way; the GSUB feature list is where the substitution lives.
 
-## 已知取舍
+### Known tradeoffs
 
-1. **共用码位归 Inter**：中文正文里的引号是西文窄引号、省略号是左下三点、破折号是西文 em dash。
-2. **汉字限定 GB2312 一级**：3,755 字之外回落系统字体。
-3. **标点已是半角**，不需要 `palt`。
-4. **汉字 advance 940 而非 1000**：中文比常规 CJK 字体窄 6%，同字号一行能多放几个字。
-   改 `CJK_SCALE = 1.0` 可退回。
-5. **只有两个字重**，没有 300/500/600。
+1. **Shared codepoints go to Inter:** quotes in Chinese body text are the narrow Western quotes, the ellipsis is three dots on the baseline, and the dash is the Western em dash.
+2. **Han is limited to GB2312 level 1:** characters outside the 3,755 fall back to system fonts.
+3. **Punctuation is already half-width**, so `palt` is unnecessary.
+4. **Han advance is 940 rather than 1000:** at the same font size a line holds about 6% more characters than a conventional CJK font. Set `CJK_SCALE = 1.0` to revert.
+5. **Only two weights:** there is no 300, 500, or 700.
 
-## 历史
+## History
 
-`history/` 保存改动前的构建，详见 `history/README.md`：
+`history/` keeps the builds from before a metric change; see [history/README.md](history/README.md):
 
-| 版本 | 内容 |
+| Version | Contents |
 |---|---|
-| `v1-fullwidth` | 最初合并版：全量 20,976 汉字、全角标点 |
-| `v2-halfwidth-unscaled` | 半角标点、3,755 常用字、未缩放 |
+| `v1-fullwidth` | First merged build: 20,976 Han characters, full-width punctuation |
+| `v2-halfwidth-unscaled` | Half-width punctuation, 3,755 common characters, no CJK scale |
 
-## 许可
+## License
 
-SIL Open Font License 1.1。衍生字体同样以 OFL 发布，不得单独售卖字体本身。
+SIL Open Font License 1.1. Derivatives are released under the OFL as well, and the font files may not be sold on their own.
 
-- Inter：© The Inter Project Authors，OFL 1.1，无 Reserved Font Name
-- Geist Mono：© 2024 The Geist Project Authors，OFL 1.1，无 Reserved Font Name（重命名为 `Dab Mono`）
-- Noto Sans SC：© 2014-2021 Adobe，OFL 1.1，保留字体名 `Source`（本字体名称不含 `Source`）
+- Inter: © The Inter Project Authors, OFL 1.1, no Reserved Font Name
+- Geist Mono: © 2024 The Geist Project Authors, OFL 1.1, no Reserved Font Name (renamed `Dab Mono`)
+- Noto Sans SC: © 2014–2021 Adobe, OFL 1.1, Reserved Font Name `Source` (this font's name does not contain `Source`)
 
-版权声明保留在字体 name 表中。本项目仅用于个人非商业用途。
+Copyright notices are preserved in the font `name` table. The “personal, non-commercial” wording there is the maintainer's intent, not an additional term of the OFL; OFL 1.1 itself permits commercial use. The full texts are in `sources/OFL-Inter.txt`, `sources/OFL-NotoSansSC.txt`, and `sources/OFL-GeistMono.txt`; [LICENSE](LICENSE) collects the notice and the license, and `dist/OFL.txt` carries the same text for anyone who copies `dist/` alone.
