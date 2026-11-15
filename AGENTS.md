@@ -4,10 +4,12 @@ This repository is a **typography dependency repository**, not a web application
 
 ## Required reading
 
-1. **DabAgents** @ `ebd76db1e9c6c65401e41180fcf75c48c23c50e4` (main) — <https://github.com/dabaz-official/DabAgents>. Start at `rules/01-operating.md`, which routes to the other rules.
+1. **DabAgents** @ `v1.0.1` — <https://github.com/dabaz-official/DabAgents>. Start at `rules/01-operating.md`, which routes to the other rules.
 2. **This repository** — [`GUIDELINE.md`](GUIDELINE.md), then [`TYPESETTING.md`](TYPESETTING.md). `GUIDELINE.md` is the only entry point; `TYPESETTING.md` §2.1 is the canonical `@font-face` block.
 
 Branching, commits, releases, and review follow DabAgents rule 03. Record a project exception here rather than restating the rule.
+
+Conflict order: the consuming project's `AGENTS.md`, then this repository's `GUIDELINE.md` / `TYPESETTING.md`, then DabAgents.
 
 ## Commands
 
@@ -55,7 +57,6 @@ Recorded under DabAgents rule 04 §9. Owner: repository maintainer. Review date:
 - **No deploy target.** `rule 06`. Consumers copy `dist/` into their own projects. There is no staging or production surface to deploy.
 - **No package-script gate.** `rule 04 §1` / `§8`. The repository has no `package.json`; the Makefile targets replace the canonical scripts, and `make web` plus the release checklist replace `pnpm check`.
 - **Committed `dist/` and `history/`.** `rule 03 §7`. Here `dist/` is the product (TTF, woff2, and the OFL notice) and `history/` holds rollback snapshots, so both are versioned on purpose. Review date: 2027-11-14.
-- **Release from `release/1.0.0`.** `rule 03 §5`. v1.0.0 is cut from the release branch for review before it is merged; `main` remains the previous baseline. Review date: 2027-11-14.
 
 ## Language
 
