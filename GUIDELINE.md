@@ -1,7 +1,7 @@
-# Dab Sans Guideline
+# DabFonts Guideline
 
 > **Version:** 1.0.0 · 2026-11-15
-> **Read order:** this file → [`TYPESETTING.md`](TYPESETTING.md). This file is the summary; `TYPESETTING.md` is normative. The `@font-face` block below is copied from TYPESETTING §2.1 — canonical: TYPESETTING §2.1; if the two differ, §2.1 wins.
+> **Read order:** this file → [`TYPESETTING.md`](TYPESETTING.md). This file is the summary; `TYPESETTING.md` is normative. The loading block below is copied from TYPESETTING §2.1 — canonical: TYPESETTING §2.1; if the two differ, §2.1 wins.
 
 **One sentence: Chinese punctuation is spaced the way English punctuation is — the mark hugs the text before it, and one space follows it. Chinese only changes the codepoint; the spacing rule is identical to English.**
 
@@ -70,7 +70,7 @@ button, input, select, textarea {
 - **Set `line-height` explicitly.** Body copy uses 1.75–1.85; never go below 1.6. Han is scaled to 0.94, so glyphs are smaller than in a normal CJK font at the same size; leading must stay relatively loose.
 - **Only 400 / 600.** 500 resolves to 400 and 700 to 600; do not rely on synthesized weights.
 - **No italic, no small caps.** The font has neither; the browser would synthesize both. The emphasis treatment is the design system's decision.
-- Exact font sizes, exact line-height values, measure, first-line indent, and weight-to-role mapping belong to the consuming design system. For the DabAZ site that is DabDesign's `core.md` §4.2 and §7: <https://github.com/dabaz-official/DabDesign/blob/main/core.md>. This repository owns the font and its consequences, not the scale.
+- Exact font sizes, exact line-height values, measure, first-line indent, and weight-to-role mapping belong to the consuming design system. For the DabAZ site that is DabDesign's `core.md` §4.2 and §7; follow the project's pinned DabDesign revision. This repository owns the font and its consequences, not the scale.
 
 ## Monospace
 
