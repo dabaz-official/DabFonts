@@ -1,6 +1,6 @@
 # DabFonts
 
-**Families:** `Dab Sans` (text) / `Dab Mono` (monospace). **Version:** 1.0.0. The repository keeps the project name DabFonts.
+**Families:** `Dab Sans` (text) / `Dab Mono` (monospace). **Version:** 1.0.1. The repository keeps the project name DabFonts.
 
 A mixed Chinese–English typeface for personal projects: the Latin side of **Inter 4.001** plus the Han side of **Noto Sans SC 2.004**, merged into one family.
 

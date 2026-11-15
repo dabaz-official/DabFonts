@@ -1,6 +1,6 @@
 # DabFonts Guideline
 
-> **Version:** 1.0.0 · 2026-11-15
+> **Version:** 1.0.1 · 2026-11-15
 > **Read order:** this file → [`TYPESETTING.md`](TYPESETTING.md). This file is the summary; `TYPESETTING.md` is normative. The loading block below is copied from TYPESETTING §2.1 — canonical: TYPESETTING §2.1; if the two differ, §2.1 wins.
 
 **One sentence: Chinese punctuation is spaced the way English punctuation is — the mark hugs the text before it, and one space follows it. Chinese only changes the codepoint; the spacing rule is identical to English.**

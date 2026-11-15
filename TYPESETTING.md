@@ -1,6 +1,6 @@
 # Dab Sans Typesetting Specification
 
-> **Version:** 1.0.0 · 2026-11-15
+> **Version:** 1.0.1 · 2026-11-15
 > **Applies to:** `dist/DabSans-{Regular,SemiBold}.{ttf,woff2}` — Inter 4.001 + Noto Sans SC 2.004 merged build
 > **Read order:** [`GUIDELINE.md`](GUIDELINE.md) is the entry point; this file is the normative reference. §2.1 is the canonical `@font-face` block.
 

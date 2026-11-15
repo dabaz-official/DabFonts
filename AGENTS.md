@@ -4,7 +4,7 @@ This repository is a **typography dependency repository**, not a web application
 
 ## Required reading
 
-1. **DabAgents** @ `v1.0.1` — <https://github.com/dabaz-official/DabAgents>. Start at `rules/01-operating.md`, which routes to the other rules.
+1. **DabAgents** @ `v1.0.2` — <https://github.com/dabaz-official/DabAgents>. Start at `rules/01-operating.md`, which routes to the other rules.
 2. **This repository** — [`GUIDELINE.md`](GUIDELINE.md), then [`TYPESETTING.md`](TYPESETTING.md). `GUIDELINE.md` is the only entry point; `TYPESETTING.md` §2.1 is the canonical `@font-face` block.
 
 Branching, commits, releases, and review follow DabAgents rule 03. Record a project exception here rather than restating the rule.

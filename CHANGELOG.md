@@ -2,13 +2,16 @@
 
 All notable changes to this repository are recorded here. The format follows Keep a Changelog; versions follow semantic versioning.
 
-## [Unreleased]
+## [1.0.1] - 2026-11-15
 
 ### Changed
 
 - The font `name` table no longer carries a “personal, non-commercial use” sentence in IDs 0 and 13. It was never a term of the OFL, but a statement in the metadata reads like one; `LICENSE`, `NOTICE.md`, and the binaries now agree.
 - File sizes in `README.md` and `TYPESETTING.md` were re-measured from the rebuilt `dist/`.
-- `AGENTS.md` defines what major, minor, and patch mean for this repository (DabAgents rule 03 §5) and pins DabAgents at the `v1.0.1` tag.
+- `AGENTS.md` defines what major, minor, and patch mean for this repository (DabAgents rule 03 §5) and pins DabAgents at the `v1.0.2` tag.
+- `GUIDELINE.md` is titled DabFonts Guideline, and the copied block is called the loading block.
+- `AGENTS.md` states the conflict order and no longer records the retired release-branch exception.
+- Typography references follow the consuming project's pinned DabDesign revision instead of `main`.
 
 ## [1.0.0] - 2026-11-15
 
