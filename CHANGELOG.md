@@ -8,6 +8,7 @@ All notable changes to this repository are recorded here. The format follows Kee
 
 - The font `name` table no longer carries a “personal, non-commercial use” sentence in IDs 0 and 13. It was never a term of the OFL, but a statement in the metadata reads like one; `LICENSE`, `NOTICE.md`, and the binaries now agree.
 - File sizes in `README.md` and `TYPESETTING.md` were re-measured from the rebuilt `dist/`.
+- `AGENTS.md` defines what major, minor, and patch mean for this repository (DabAgents rule 03 §5) and pins DabAgents at the `v1.0.1` tag.
 
 ## [1.0.0] - 2026-11-15
 
