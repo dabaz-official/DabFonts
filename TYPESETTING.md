@@ -300,7 +300,7 @@ Two things are mandatory:
 - **Never go below 1.6.** Chinese has no word spaces, so tight leading turns a paragraph into a solid block. Dab Sans also scales Han to 0.94, making the glyphs smaller; the leading needs to be relatively looser, not tighter.
 - **Do not compensate for the 0.94 scale with tracking or by scaling Han alone.** At the same font size Han sets about 6% smaller than in a conventional CJK font. If a legacy layout must match PingFang's Han size exactly, divide the font size by 0.94 and accept that Latin grows with it.
 
-For body text, use 1.75–1.85. Exact font sizes, exact line-height values, measure, first-line indent, and alignment strategy belong to the consuming design system. For the DabAZ site those are DabDesign's `core.md` §4.2 (type scale) and §7 (layout): <https://github.com/dabaz-official/DabDesign/blob/main/core.md>. This repository does not define them.
+For body text, use 1.75–1.85. Exact font sizes, exact line-height values, measure, first-line indent, and alignment strategy belong to the consuming design system. For the DabAZ site those are DabDesign's `core.md` §4.2 (type scale) and §7 (layout); follow the project's pinned DabDesign revision. This repository does not define them.
 
 ### 5.2 Weights and emphasis
 
